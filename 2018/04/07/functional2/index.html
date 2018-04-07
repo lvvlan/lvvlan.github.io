@@ -107,29 +107,31 @@
 
 
   
-  <meta name="keywords" content="码农/猫奴/瞎烧友/伪影迷" />
+  <meta name="keywords" content="functional," />
 
 
-<meta name="description" content="码农/猫奴/瞎烧友/伪影迷">
-<meta property="og:type" content="website">
-<meta property="og:title" content="lemonleon">
-<meta property="og:url" content="http://lvvlan.github.io/index.html">
+<meta name="description" content="理解数据JavaScript数据类型 当一门语言允许函数作为任何其他数据类型使用时，函数被称为一等公民（First Class Citizens）  简单的将，JS支持如下几种数据类型：  Number String Boolean Object null undefined symbol  而函数也可以作为JS的一种数据类型，我们可以把函数存储在变量中，像操作其他类型数据一样操作他，当一门语言允">
+<meta name="keywords" content="functional">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数式编程（二）：高阶函数（上）">
+<meta property="og:url" content="http://lvvlan.github.io/2018/04/07/functional2/index.html">
 <meta property="og:site_name" content="lemonleon">
-<meta property="og:description" content="码农/猫奴/瞎烧友/伪影迷">
+<meta property="og:description" content="理解数据JavaScript数据类型 当一门语言允许函数作为任何其他数据类型使用时，函数被称为一等公民（First Class Citizens）  简单的将，JS支持如下几种数据类型：  Number String Boolean Object null undefined symbol  而函数也可以作为JS的一种数据类型，我们可以把函数存储在变量中，像操作其他类型数据一样操作他，当一门语言允">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-04-07T14:12:34.621Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="lemonleon">
-<meta name="twitter:description" content="码农/猫奴/瞎烧友/伪影迷">
+<meta name="twitter:title" content="函数式编程（二）：高阶函数（上）">
+<meta name="twitter:description" content="理解数据JavaScript数据类型 当一门语言允许函数作为任何其他数据类型使用时，函数被称为一等公民（First Class Citizens）  简单的将，JS支持如下几种数据类型：  Number String Boolean Object null undefined symbol  而函数也可以作为JS的一种数据类型，我们可以把函数存储在变量中，像操作其他类型数据一样操作他，当一门语言允">
 
 
 
 
 
 
-  <link rel="canonical" href="http://lvvlan.github.io/"/>
+  <link rel="canonical" href="http://lvvlan.github.io/2018/04/07/functional2/"/>
 
 
-  <title>lemonleon</title>
+  <title>函数式编程（二）：高阶函数（上） | lemonleon</title>
   
 
 
@@ -176,8 +178,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <a href="https://github.com/lvvlan" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
@@ -277,9 +278,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -311,9 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/07/functional2/" itemprop="url">函数式编程（二）：高阶函数（上）</a></h1>
+          <h1 class="post-title" itemprop="name headline">函数式编程（二）：高阶函数（上）</h1>
         
 
         <div class="post-meta">
@@ -380,9 +379,7 @@
       
 
       
-        
-          
-            <h2 id="理解数据"><a href="#理解数据" class="headerlink" title="理解数据"></a>理解数据</h2><h3 id="JavaScript数据类型"><a href="#JavaScript数据类型" class="headerlink" title="JavaScript数据类型"></a>JavaScript数据类型</h3><blockquote>
+        <h2 id="理解数据"><a href="#理解数据" class="headerlink" title="理解数据"></a>理解数据</h2><h3 id="JavaScript数据类型"><a href="#JavaScript数据类型" class="headerlink" title="JavaScript数据类型"></a>JavaScript数据类型</h3><blockquote>
 <p>当一门语言允许函数作为任何其他数据类型使用时，函数被称为<strong>一等公民（First Class Citizens）</strong></p>
 </blockquote>
 <p>简单的将，JS支持如下几种数据类型：</p>
@@ -530,8 +527,6 @@ people.sort(sortBy(&apos;lastname&apos;))
 <li>《JavaScript ES6 函数编程入门经典》第3章 </li>
 </ul>
 
-          
-        
       
     </div>
     
@@ -546,408 +541,36 @@ people.sort(sortBy(&apos;lastname&apos;))
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lvvlan.github.io/2018/03/11/functional1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lemonleon">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/1.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lemonleon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/11/functional1/" itemprop="url">函数式编程(一)：简介</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-11T22:56:21+08:00">2018-03-11</time>
-            
-
-            
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/functional/" rel="tag"># functional</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>先来看下数学上的函数：</p>
-<blockquote>
-<p>f(x)=y</p>
-</blockquote>
-<p>可以解读为: <strong>函数f，以x作为参数，并返回输出y</strong>；这个简单的定义包含了几个点：</p>
-<ul>
-<li>函数必须总是接收一个参数</li>
-<li>函数必须总是返回一个值</li>
-<li>函数应该依据接收到的参数而不是外部环境运行</li>
-<li>对于一个给定的X，只会输出唯一的一个Y</li>
-</ul>
-<p>有了数学上的函数定义，可以理解出程序上的定义：<strong>函数式编程是一种<a href="https://baike.baidu.com/item/%E8%8C%83%E5%BC%8F/22773" target="_blank" rel="noopener">范式</a>，我们能够以此创建仅依赖数据就可以完成自身逻辑的函数（函数不会改变任何外部环境的变量）</strong></p>
-<p>举个栗子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let percentValue = 5</span><br><span class="line">let calculateTax = (value) =&gt; value/100 * (100 + percentValue)</span><br></pre></td></tr></table></figure>
-<p>上面代码中，calculateTax返回一个经过计算的数值，理论上讲，该段代码无任何异议；但该函数在数学意义上就不能称之为一个真正的函数，因为他的执行依赖了一个外部环境。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let calculateTax = (value, percentValue) =&gt; value/100 * (100 + percentValue)</span><br></pre></td></tr></table></figure>
-<p>上面这段代码则可以被成为一个真正的函数了。我们做了什么 -&gt; 在函数内部消除了对外部环境的访问。稍后会介绍这么做的好处。</p>
-<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><h3 id="引用透明"><a href="#引用透明" class="headerlink" title="引用透明"></a>引用透明</h3><blockquote>
-<p>引用透明性: 相同的输入都会返回相同的值</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let identity = (i) =&gt; i</span><br></pre></td></tr></table></figure>
-<p>上面的代码定义了一个函数 <code>identity</code>，他将传入的值作为输出，没有任何依赖的外部环境，该函数满足了引用透明性条件。现在假设该函数被用于其他函数调用之处：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum(4, 5) + identity(1)</span><br></pre></td></tr></table></figure>
-<p>根据引用透明性原则，我们可以把上面的函数转化为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum(4, 5) + 1</span><br></pre></td></tr></table></figure>
-<p>这个过程被称为<strong>替换模型（Substitution Model）</strong></p>
-<h3 id="声名式"><a href="#声名式" class="headerlink" title="声名式"></a>声名式</h3><p>给定一个数组，我想分别打印出数组的每一项，有如下两段代码：</p>
-<p>A</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let arr = [1, 2, 3, 4, 5]</span><br><span class="line">for(let i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">    console.log(arr[i])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>B</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let arr = [1, 2, 3, 4, 5]</span><br><span class="line">arr.forEach((item) =&gt; console.log(item))</span><br></pre></td></tr></table></figure>
-<p> 上面两段代码都可以完成我们规定的任务，区别在于：</p>
-<ul>
-<li>代码A是命令式的</li>
-<li>代码B是声名式的</li>
-</ul>
-<p>回顾一下我们的任务： <strong>打印出数组中的每一项</strong></p>
-<ul>
-<li>代码A中，我们精确的告诉了程序改怎么做：我们用数组长度的索引编写了一个for循环，然后再打印出数组的每一项，这并不是任务的初衷，而是在<code>精确的告知程序该怎么做</code>，我们称这种解决方案为<strong>命令式</strong></li>
-<li>代码B中，程序准确的执行了我们的任务：<strong>打印出数组中的每一项</strong>，这种<code>告知程序做什么的</code>解决方案，我们称之为<strong>声名式</strong></li>
-</ul>
-<blockquote>
-<p>命令式 -&gt; 怎么做<br>声名式 -&gt; 做什么</p>
-</blockquote>
-<h2 id="函数式编程带来的好处"><a href="#函数式编程带来的好处" class="headerlink" title="函数式编程带来的好处"></a>函数式编程带来的好处</h2><h3 id="纯函数"><a href="#纯函数" class="headerlink" title="纯函数"></a>纯函数</h3><blockquote>
-<p>纯函数是对给定的输入返回相同的输出的函数</p>
-</blockquote>
-<pre><code>let double = (value) =&gt; value * 2
-</code></pre><p>上面的double函数就是一个纯函数，因为给他一个输入，他总是能返回相同的输出</p>
-<h3 id="并发代码"><a href="#并发代码" class="headerlink" title="并发代码"></a>并发代码</h3><blockquote>
-<p>根据引用通明原则，我们可以同步的执行函数</p>
-</blockquote>
-<p>假设我们用JS中的WebWorker来并发的执行多任务，有以下代码</p>
-<pre><code>let global = &apos;something&apos;
-
-let function1 = (input) =&gt; {
-    // 处理input
-    // 改变global
-    global = &apos;somethingElse&apos;
-}
-
-let function2 = () =&gt; {
-    if (global === &apos;something&apos;) {
-        // 业务逻辑
-    }
-}
-</code></pre><p>如果我们要并发的执行function1和function2，会因为先后顺序等因素得到不同结果，现在把这些函数改为纯函数</p>
-<pre><code>let function1 = (input, global) =&gt; {
-    // 处理input
-    // 改变global
-    global = &apos;somethingElse&apos;
-}
-
-let function2 = (global) =&gt; {
-    if (global === &apos;something&apos;) {
-        // 业务逻辑
-    }
-}
-</code></pre><p>此处我们移动了global变量，把他作为两个函数的参数，使他们变为纯函数。现在我们可以并发的执行两个函数了，不会带来任何问题。</p>
-<h3 id="可缓存"><a href="#可缓存" class="headerlink" title="可缓存"></a>可缓存</h3><blockquote>
-<p>既然纯函数总是为给定的输入返回相同的输出，那么我们就能够缓存函数的输出</p>
-</blockquote>
-<p>假设有如下做耗时计算的函数：</p>
-<pre><code>let longRunningFunction = (ip) =&gt; { // do long running tasks and return }
-</code></pre><p><strong>如果longRunningFunction是纯函数</strong>，我们知道相同的输入那么他总会返回相同输出，那么我们能不能将函数的结果作为下一个函数的调用呢？</p>
-<p>假设我们有一个对象，他存储了longRunningFunction的所有调用结果：</p>
-<pre><code>let longRunningFnBookKeeper = {
-    2: 3,
-    4: 5,
-    ...
-}
-</code></pre><p>现在我们在调用原始函数之前检查key是否在longRunningFnBookKeeper中</p>
-<pre><code>let longRunningFnBookKeeper = {
-    2: 3,
-    4: 5,
-    ...
-}
-
-// 检查key是否在longRunningFnBookKeeper中
-// 如果在返回返回结果否则更新对象
-longRunningFnBookKeeper.hasOwnPrototype(ip) ? 
-    longRunningFnBookKeeper.hasOwnPrototype[ip] :
-    longRunningFnBookKeeper.hasOwnPrototype = longRunningFunction(ip)
-</code></pre><p>另一个栗子：</p>
-<pre><code>let factorial (n) {
-    if (n === 1) return 1
-    return n * factorial(n - 1)
-}
-</code></pre><p>上面的代码是一个阶乘函数，计算n的阶乘，要保存n个调用记录，复杂度O(n)</p>
-<img src="/2018/03/11/functional1/1-1.png">
-<p>通过缓存的方式将中个阶乘函数改写</p>
-<pre><code>let factorial (n, result) {
-    if (n === 1) return result
-    return factorial(n - 1, n * result)
-}
-</code></pre><img src="/2018/03/11/functional1/1-2.png">
-<p>上面的代码，我们将上一次的计算结果缓存，复杂度O(1)  </p>
-<h3 id="管道与组合"><a href="#管道与组合" class="headerlink" title="管道与组合"></a>管道与组合</h3><p>在UNIX和LINUX的平台中有许多用于日常任务的命令</p>
-<pre><code>ps -ef | grep nginx
-</code></pre><p>上面的命令用于查询系统中的nginx信息，这就是一个典型的组合方式。</p>
-<img src="/2018/03/11/functional1/1-3.png">
-<p>上图中，X和Y之间的变形关系是函数f，Y和Z的变形关系是g，那么X和Z之间的关系，就是g和f的组合函数： </p>
-<pre><code>g(f(x))
-</code></pre><p>另一种方式</p>
-<pre><code>foo(x).compose(f).compose(g)
-</code></pre><p>将值通过链式调用的方式逐级传递</p>
-<h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><ul>
-<li><a href="http://www.ruanyifeng.com/blog/2017/02/fp-tutorial.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2017/02/fp-tutorial.html</a></li>
-<li>《JavaScript ES6 函数编程入门经典》第1章 </li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
       
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lvvlan.github.io/2018/01/28/my-new-post/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lemonleon">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/1.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lemonleon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/28/my-new-post/" itemprop="url">my new post</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-28T17:16:54+08:00">2018-01-28</time>
+              <a href="/2018/03/11/functional1/" rel="next" title="函数式编程(一)：简介">
+                <i class="fa fa-chevron-left"></i> 函数式编程(一)：简介
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <h4 id="这是一篇测试文章"><a href="#这是一篇测试文章" class="headerlink" title="这是一篇测试文章"></a>这是一篇测试文章</h4><blockquote class="blockquote-center"><p>Talk is cheap, show me your code.</p>
-</blockquote>
-<blockquote><p>感时花溅泪，恨别鸟惊心。</p>
-<footer><strong>杜甫</strong><cite>《春望》</cite></footer></blockquote>
-<p><br></p>
-<div class="note primary"><p></p><h3>title</h3><br>content<p></p></div>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -957,143 +580,19 @@ longRunningFnBookKeeper.hasOwnPrototype(ip) ?
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lvvlan.github.io/2018/01/28/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lemonleon">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/1.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lemonleon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/28/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-28T17:04:52+08:00">2018-01-28</time>
-            
-
-            
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -1116,8 +615,17 @@ longRunningFnBookKeeper.hasOwnPrototype(ip) ?
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1204,6 +712,22 @@ longRunningFnBookKeeper.hasOwnPrototype(ip) ?
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#理解数据"><span class="nav-number">1.</span> <span class="nav-text">理解数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript数据类型"><span class="nav-number">1.1.</span> <span class="nav-text">JavaScript数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存储函数"><span class="nav-number">1.2.</span> <span class="nav-text">存储函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传递函数"><span class="nav-number">1.3.</span> <span class="nav-text">传递函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回函数"><span class="nav-number">1.4.</span> <span class="nav-text">返回函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象和高阶函数"><span class="nav-number">2.</span> <span class="nav-text">抽象和高阶函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象"><span class="nav-number">2.1.</span> <span class="nav-text">抽象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过高阶函数实现抽象"><span class="nav-number">2.2.</span> <span class="nav-text">通过高阶函数实现抽象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#真实的高阶函数"><span class="nav-number">3.</span> <span class="nav-text">真实的高阶函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单的高阶函数"><span class="nav-number">3.1.</span> <span class="nav-text">简单的高阶函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#every"><span class="nav-number">3.1.1.</span> <span class="nav-text">every</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#some"><span class="nav-number">3.2.</span> <span class="nav-text">some</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort"><span class="nav-number">3.3.</span> <span class="nav-text">sort</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附"><span class="nav-number">4.</span> <span class="nav-text">附</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">4.1.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1339,6 +863,10 @@ longRunningFnBookKeeper.hasOwnPrototype(ip) ?
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.2"></script>
+
+
 
   
 
