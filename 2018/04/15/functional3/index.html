@@ -118,7 +118,7 @@
 <meta property="og:site_name" content="lemonleon">
 <meta property="og:description" content="理解闭包什么是闭包简言之，闭包就是一个内部函数。在另一个函数内部的函数，称为内部函数。 function outer () {     function inner () {} } 这就是闭包。函数inner被称为闭包函数。 闭包有三个可访问的作用域  在他自身声明之内声明的变量 对全局变量的访问 对外部函数变量的访问   function outer () {     function inne">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-15T14:25:17.047Z">
+<meta property="og:updated_time" content="2018-04-15T14:28:42.172Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="函数式编程（二）：高阶函数（下）">
 <meta name="twitter:description" content="理解闭包什么是闭包简言之，闭包就是一个内部函数。在另一个函数内部的函数，称为内部函数。 function outer () {     function inner () {} } 这就是闭包。函数inner被称为闭包函数。 闭包有三个可访问的作用域  在他自身声明之内声明的变量 对全局变量的访问 对外部函数变量的访问   function outer () {     function inne">
@@ -473,7 +473,7 @@ tap(&apos;fun&apos;)((it) =&gt; console.log(&apos;vaule is: &apos;, it))
 </code></pre><h3 id="once"><a href="#once" class="headerlink" title="once"></a>once</h3><blockquote>
 <p>once函数的任务是只运行一次给定的函数</p>
 </blockquote>
-<pre><code>const once3 = (fn) =&gt; {
+<pre><code>const once = (fn) =&gt; {
     let done = false
 
     return (...args) =&gt; done ? undefined : ((done = true), fn.apply(this, args))

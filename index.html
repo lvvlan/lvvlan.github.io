@@ -476,7 +476,7 @@ tap(&apos;fun&apos;)((it) =&gt; console.log(&apos;vaule is: &apos;, it))
 </code></pre><h3 id="once"><a href="#once" class="headerlink" title="once"></a>once</h3><blockquote>
 <p>once函数的任务是只运行一次给定的函数</p>
 </blockquote>
-<pre><code>const once3 = (fn) =&gt; {
+<pre><code>const once = (fn) =&gt; {
     let done = false
 
     return (...args) =&gt; done ? undefined : ((done = true), fn.apply(this, args))
