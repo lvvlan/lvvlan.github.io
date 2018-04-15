@@ -479,7 +479,9 @@ tap(&apos;fun&apos;)((it) =&gt; console.log(&apos;vaule is: &apos;, it))
 <pre><code>const once = (fn) =&gt; {
     let done = false
 
-    return (...args) =&gt; done ? undefined : ((done = true), fn.apply(this, args))
+    return function (...args) {
+        return done ? undefined : ((done = true), fn.apply(this, args))
+    }
 }    
 </code></pre><p>下面我们来快速检测一下once函数</p>
 <pre><code>const doPayment = once(() =&gt; console.log(&apos;doPayment is done!&apos;))
