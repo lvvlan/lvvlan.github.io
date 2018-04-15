@@ -110,32 +110,28 @@
   <meta name="keywords" content="functional," />
 
 
-<meta name="description" content="定义先来看下数学上的函数：  f(x)=y  可以解读为: 函数f，以x作为参数，并返回输出y；这个简单的定义包含了几个点：  函数必须总是接收一个参数 函数必须总是返回一个值 函数应该依据接收到的参数而不是外部环境运行 对于一个给定的X，只会输出唯一的一个Y  有了数学上的函数定义，可以理解出程序上的定义：函数式编程是一种范式，我们能够以此创建仅依赖数据就可以完成自身逻辑的函数（函数不会改变任何">
+<meta name="description" content="理解闭包什么是闭包简言之，闭包就是一个内部函数。在另一个函数内部的函数，称为内部函数。 function outer () {     function inner () {} } 这就是闭包。函数inner被称为闭包函数。 闭包有三个可访问的作用域  在他自身声明之内声明的变量 对全局变量的访问 对外部函数变量的访问   function outer () {     function inne">
 <meta name="keywords" content="functional">
 <meta property="og:type" content="article">
-<meta property="og:title" content="函数式编程(一)：简介">
-<meta property="og:url" content="http://lvvlan.github.io/2018/03/11/functional1/index.html">
+<meta property="og:title" content="函数式编程（二）：高阶函数（下）">
+<meta property="og:url" content="http://lvvlan.github.io/2018/04/15/functional3/index.html">
 <meta property="og:site_name" content="lemonleon">
-<meta property="og:description" content="定义先来看下数学上的函数：  f(x)=y  可以解读为: 函数f，以x作为参数，并返回输出y；这个简单的定义包含了几个点：  函数必须总是接收一个参数 函数必须总是返回一个值 函数应该依据接收到的参数而不是外部环境运行 对于一个给定的X，只会输出唯一的一个Y  有了数学上的函数定义，可以理解出程序上的定义：函数式编程是一种范式，我们能够以此创建仅依赖数据就可以完成自身逻辑的函数（函数不会改变任何">
+<meta property="og:description" content="理解闭包什么是闭包简言之，闭包就是一个内部函数。在另一个函数内部的函数，称为内部函数。 function outer () {     function inner () {} } 这就是闭包。函数inner被称为闭包函数。 闭包有三个可访问的作用域  在他自身声明之内声明的变量 对全局变量的访问 对外部函数变量的访问   function outer () {     function inne">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://lvvlan.github.io/2018/03/11/functional1/1-1.png">
-<meta property="og:image" content="http://lvvlan.github.io/2018/03/11/functional1/1-2.png">
-<meta property="og:image" content="http://lvvlan.github.io/2018/03/11/functional1/1-3.png">
-<meta property="og:updated_time" content="2018-04-07T14:11:15.598Z">
+<meta property="og:updated_time" content="2018-04-15T14:25:17.047Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="函数式编程(一)：简介">
-<meta name="twitter:description" content="定义先来看下数学上的函数：  f(x)=y  可以解读为: 函数f，以x作为参数，并返回输出y；这个简单的定义包含了几个点：  函数必须总是接收一个参数 函数必须总是返回一个值 函数应该依据接收到的参数而不是外部环境运行 对于一个给定的X，只会输出唯一的一个Y  有了数学上的函数定义，可以理解出程序上的定义：函数式编程是一种范式，我们能够以此创建仅依赖数据就可以完成自身逻辑的函数（函数不会改变任何">
-<meta name="twitter:image" content="http://lvvlan.github.io/2018/03/11/functional1/1-1.png">
+<meta name="twitter:title" content="函数式编程（二）：高阶函数（下）">
+<meta name="twitter:description" content="理解闭包什么是闭包简言之，闭包就是一个内部函数。在另一个函数内部的函数，称为内部函数。 function outer () {     function inner () {} } 这就是闭包。函数inner被称为闭包函数。 闭包有三个可访问的作用域  在他自身声明之内声明的变量 对全局变量的访问 对外部函数变量的访问   function outer () {     function inne">
 
 
 
 
 
 
-  <link rel="canonical" href="http://lvvlan.github.io/2018/03/11/functional1/"/>
+  <link rel="canonical" href="http://lvvlan.github.io/2018/04/15/functional3/"/>
 
 
-  <title>函数式编程(一)：简介 | lemonleon</title>
+  <title>函数式编程（二）：高阶函数（下） | lemonleon</title>
   
 
 
@@ -299,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lvvlan.github.io/2018/03/11/functional1/">
+    <link itemprop="mainEntityOfPage" href="http://lvvlan.github.io/2018/04/15/functional3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lemonleon">
@@ -316,7 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">函数式编程(一)：简介</h1>
+          <h1 class="post-title" itemprop="name headline">函数式编程（二）：高阶函数（下）</h1>
         
 
         <div class="post-meta">
@@ -328,7 +324,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-11T22:56:21+08:00">2018-03-11</time>
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-15T22:24:25+08:00">2018-04-15</time>
             
 
             
@@ -383,135 +379,139 @@
       
 
       
-        <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>先来看下数学上的函数：</p>
-<blockquote>
-<p>f(x)=y</p>
-</blockquote>
-<p>可以解读为: <strong>函数f，以x作为参数，并返回输出y</strong>；这个简单的定义包含了几个点：</p>
-<ul>
-<li>函数必须总是接收一个参数</li>
-<li>函数必须总是返回一个值</li>
-<li>函数应该依据接收到的参数而不是外部环境运行</li>
-<li>对于一个给定的X，只会输出唯一的一个Y</li>
-</ul>
-<p>有了数学上的函数定义，可以理解出程序上的定义：<strong>函数式编程是一种<a href="https://baike.baidu.com/item/%E8%8C%83%E5%BC%8F/22773" target="_blank" rel="noopener">范式</a>，我们能够以此创建仅依赖数据就可以完成自身逻辑的函数（函数不会改变任何外部环境的变量）</strong></p>
-<p>举个栗子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let percentValue = 5</span><br><span class="line">let calculateTax = (value) =&gt; value/100 * (100 + percentValue)</span><br></pre></td></tr></table></figure>
-<p>上面代码中，calculateTax返回一个经过计算的数值，理论上讲，该段代码无任何异议；但该函数在数学意义上就不能称之为一个真正的函数，因为他的执行依赖了一个外部环境。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let calculateTax = (value, percentValue) =&gt; value/100 * (100 + percentValue)</span><br></pre></td></tr></table></figure>
-<p>上面这段代码则可以被成为一个真正的函数了。我们做了什么 -&gt; 在函数内部消除了对外部环境的访问。稍后会介绍这么做的好处。</p>
-<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><h3 id="引用透明"><a href="#引用透明" class="headerlink" title="引用透明"></a>引用透明</h3><blockquote>
-<p>引用透明性: 相同的输入都会返回相同的值</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let identity = (i) =&gt; i</span><br></pre></td></tr></table></figure>
-<p>上面的代码定义了一个函数 <code>identity</code>，他将传入的值作为输出，没有任何依赖的外部环境，该函数满足了引用透明性条件。现在假设该函数被用于其他函数调用之处：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum(4, 5) + identity(1)</span><br></pre></td></tr></table></figure>
-<p>根据引用透明性原则，我们可以把上面的函数转化为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum(4, 5) + 1</span><br></pre></td></tr></table></figure>
-<p>这个过程被称为<strong>替换模型（Substitution Model）</strong></p>
-<h3 id="声名式"><a href="#声名式" class="headerlink" title="声名式"></a>声名式</h3><p>给定一个数组，我想分别打印出数组的每一项，有如下两段代码：</p>
-<p>A</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let arr = [1, 2, 3, 4, 5]</span><br><span class="line">for(let i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">    console.log(arr[i])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>B</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let arr = [1, 2, 3, 4, 5]</span><br><span class="line">arr.forEach((item) =&gt; console.log(item))</span><br></pre></td></tr></table></figure>
-<p> 上面两段代码都可以完成我们规定的任务，区别在于：</p>
-<ul>
-<li>代码A是命令式的</li>
-<li>代码B是声名式的</li>
-</ul>
-<p>回顾一下我们的任务： <strong>打印出数组中的每一项</strong></p>
-<ul>
-<li>代码A中，我们精确的告诉了程序改怎么做：我们用数组长度的索引编写了一个for循环，然后再打印出数组的每一项，这并不是任务的初衷，而是在<code>精确的告知程序该怎么做</code>，我们称这种解决方案为<strong>命令式</strong></li>
-<li>代码B中，程序准确的执行了我们的任务：<strong>打印出数组中的每一项</strong>，这种<code>告知程序做什么的</code>解决方案，我们称之为<strong>声名式</strong></li>
-</ul>
-<blockquote>
-<p>命令式 -&gt; 怎么做<br>声名式 -&gt; 做什么</p>
-</blockquote>
-<h2 id="函数式编程带来的好处"><a href="#函数式编程带来的好处" class="headerlink" title="函数式编程带来的好处"></a>函数式编程带来的好处</h2><h3 id="纯函数"><a href="#纯函数" class="headerlink" title="纯函数"></a>纯函数</h3><blockquote>
-<p>纯函数是对给定的输入返回相同的输出的函数</p>
-</blockquote>
-<pre><code>let double = (value) =&gt; value * 2
-</code></pre><p>上面的double函数就是一个纯函数，因为给他一个输入，他总是能返回相同的输出</p>
-<h3 id="并发代码"><a href="#并发代码" class="headerlink" title="并发代码"></a>并发代码</h3><blockquote>
-<p>根据引用通明原则，我们可以同步的执行函数</p>
-</blockquote>
-<p>假设我们用JS中的WebWorker来并发的执行多任务，有以下代码</p>
-<pre><code>let global = &apos;something&apos;
-
-let function1 = (input) =&gt; {
-    // 处理input
-    // 改变global
-    global = &apos;somethingElse&apos;
+        <h2 id="理解闭包"><a href="#理解闭包" class="headerlink" title="理解闭包"></a>理解闭包</h2><h3 id="什么是闭包"><a href="#什么是闭包" class="headerlink" title="什么是闭包"></a>什么是闭包</h3><p>简言之，闭包就是一个内部函数。在另一个函数内部的函数，称为内部函数。</p>
+<pre><code>function outer () {
+    function inner () {}
 }
+</code></pre><p>这就是闭包。函数inner被称为闭包函数。</p>
+<p>闭包有三个可访问的作用域</p>
+<ul>
+<li>在他自身声明之内声明的变量</li>
+<li>对全局变量的访问</li>
+<li>对外部函数变量的访问</li>
+</ul>
+<hr>
+<pre><code>function outer () {
+    function inner () {
+        let a = 5
+        console.log(a)
+    }
+    inner()
+}
+</code></pre><p><strong>当inner函数被调用的时候，控制台会输出5（闭包函数可以访问在他自身声明之内声明的变量）</strong></p>
+<pre><code>let global = &apos;global&apos;
 
-let function2 = () =&gt; {
-    if (global === &apos;something&apos;) {
-        // 业务逻辑
+function outer () {
+    function inner () {
+        let a = 5
+        console.log(global)
+    }
+    inner()
+} 
+</code></pre><p><strong>当inner函数被调用的时候，控制台会输出’global’（闭包函数可以访问全局变量）</strong></p>
+<pre><code>let global = &apos;global&apos;
+
+function outer () {
+    let out = &apos;out&apos;
+    function inner () {
+        let a = 5
+        console.log(out)
+    }
+    inner()
+} 
+</code></pre><p><strong>当inner函数被调用的时候，控制台会输出’out’</strong>    </p>
+<h3 id="记住闭包生成的位置"><a href="#记住闭包生成的位置" class="headerlink" title="记住闭包生成的位置"></a>记住闭包生成的位置</h3><p>如下代码</p>
+<pre><code>let fn = (arg) =&gt; {
+    let outer = &apos;Visible&apos;
+    let innerFn = () =&gt; {
+        console.log(outer)
+        console.log(arg)
+    }
+
+    return innerFn
+}
+</code></pre><p>innerFn对于fn来说，是一个闭包函数，并且fn被调用后返回了innerFn。</p>
+<pre><code>let closureFn = fn(5)
+closureFn() // Visible; 5   
+</code></pre><p>fn被调用时，返回了innerFn，当innerFn被返回时，JavaScript执行引擎视innerFn为一个闭包，如上一小节所说，闭包有三个作用域层级。这三个作用域层级（arg，outer值将被设置到inner的作用域层级中）在innerFn返回时都被设置了！返回函数的引用存储在了closureFn中。如此，当closureFn通过作用域链被调用时就记住了arg、outer的值。  </p>
+<h3 id="回顾sortBy函数"><a href="#回顾sortBy函数" class="headerlink" title="回顾sortBy函数"></a>回顾sortBy函数</h3><p>快速回顾一下上一篇中定义和使用的sortBy函数</p>
+<pre><code>const sortBy = (property) =&gt; {
+    return (a, b) =&gt; {
+        let result = (a[property] &lt; b[property] ? -1 : (a[property] &gt; b[property]) ? 1 : 0)
+
+        return result
     }
 }
-</code></pre><p>如果我们要并发的执行function1和function2，会因为先后顺序等因素得到不同结果，现在把这些函数改为纯函数</p>
-<pre><code>let function1 = (input, global) =&gt; {
-    // 处理input
-    // 改变global
-    global = &apos;somethingElse&apos;
-}
-
-let function2 = (global) =&gt; {
-    if (global === &apos;something&apos;) {
-        // 业务逻辑
-    }
-}
-</code></pre><p>此处我们移动了global变量，把他作为两个函数的参数，使他们变为纯函数。现在我们可以并发的执行两个函数了，不会带来任何问题。</p>
-<h3 id="可缓存"><a href="#可缓存" class="headerlink" title="可缓存"></a>可缓存</h3><blockquote>
-<p>既然纯函数总是为给定的输入返回相同的输出，那么我们就能够缓存函数的输出</p>
+</code></pre><p>当以如下方式调用sortBy函数</p>
+<pre><code>sortBy(&apos;firstname&apos;)
+</code></pre><p>sortBy函数返回了一个接受两个参数的新函数</p>
+<pre><code>(a, b) =&gt; (/* 实现 */)
+</code></pre><p>这时返回的函数就能够访问property参数，所以就可以根据传入的property值写对应的逻辑</p>
+<h2 id="真实的高阶函数"><a href="#真实的高阶函数" class="headerlink" title="真实的高阶函数"></a>真实的高阶函数</h2><h3 id="tap"><a href="#tap" class="headerlink" title="tap"></a>tap</h3><blockquote>
+<p>tap函数是一个简单的函数，他将接受一个value并返回一个包含value的闭包函数，该函数将被执行</p>
 </blockquote>
-<p>假设有如下做耗时计算的函数：</p>
-<pre><code>let longRunningFunction = (ip) =&gt; { // do long running tasks and return }
-</code></pre><p><strong>如果longRunningFunction是纯函数</strong>，我们知道相同的输入那么他总会返回相同输出，那么我们能不能将函数的结果作为下一个函数的调用呢？</p>
-<p>假设我们有一个对象，他存储了longRunningFunction的所有调用结果：</p>
-<pre><code>let longRunningFnBookKeeper = {
-    2: 3,
-    4: 5,
-    ...
-}
-</code></pre><p>现在我们在调用原始函数之前检查key是否在longRunningFnBookKeeper中</p>
-<pre><code>let longRunningFnBookKeeper = {
-    2: 3,
-    4: 5,
-    ...
-}
+<pre><code>const tap = (value) =&gt; (fn) =&gt; (
+    typeof(fn) === &apos;function&apos; &amp;&amp; fn(value),
+    console.log(value)
+)
 
-// 检查key是否在longRunningFnBookKeeper中
-// 如果在返回返回结果否则更新对象
-longRunningFnBookKeeper.hasOwnPrototype(ip) ? 
-    longRunningFnBookKeeper.hasOwnPrototype[ip] :
-    longRunningFnBookKeeper.hasOwnPrototype = longRunningFunction(ip)
-</code></pre><p>另一个栗子：</p>
-<pre><code>let factorial (n) {
-    if (n === 1) return 1
+tap(&apos;fun&apos;)((it) =&gt; console.log(&apos;vaule is: &apos;, it))
+// value is  fun
+// fun
+</code></pre><h3 id="unary"><a href="#unary" class="headerlink" title="unary"></a>unary</h3><blockquote>
+<p>unary接受一个给定多个参数的函数，并把它转换为一个只接受一个参数的函数</p>
+</blockquote>
+<p>有数组[‘1’, ‘2’, ‘3’]，我期望能够将数组中的每一项改为number，我们可以利用数组的map方法</p>
+<pre><code>[&apos;1&apos;, &apos;2&apos;, &apos;3&apos;].map(parseInt)
+// [1, NaN, NaN]
+</code></pre><p>然而返回的并不是我们所期望，map函数参数中传入的函数接收两个参数，第一个是数组中的每一项，第二个该项的索引。parseInt函数接收两个参数，第一个是将要转化的字符串，第二个按照几进制转换，默认10进制。由此可见，当进行到数组的第二项，parseInt函数接收到的第一个参数是’2’,第二个参数是1，所以会返回NaN。</p>
+<pre><code>const unary = (fn) =&gt; fn.length &lt;= 1 ? fn : (arg) =&gt; fn(arg)
+</code></pre><p>unary函数接收一个函数为参数，如果这个函数接收的参数个数小于等于1什么都不做，否则返回一个新函数，他只接受一个参数arg</p>
+<p>接下来我们可以通过unary函数再来完成上述任务</p>
+<pre><code>[&apos;1&apos;, &apos;2&apos;, &apos;3&apos;].map(unary(parseInt)) 
+// [1, 2, 3]
+</code></pre><h3 id="once"><a href="#once" class="headerlink" title="once"></a>once</h3><blockquote>
+<p>once函数的任务是只运行一次给定的函数</p>
+</blockquote>
+<pre><code>const once3 = (fn) =&gt; {
+    let done = false
+
+    return (...args) =&gt; done ? undefined : ((done = true), fn.apply(this, args))
+}    
+</code></pre><p>下面我们来快速检测一下once函数</p>
+<pre><code>const doPayment = once(() =&gt; console.log(&apos;doPayment is done!&apos;))
+
+// 执行第一次
+doPayment() // doPayment is done!
+// 执行第二次
+doPayment() // undefined  
+</code></pre><h3 id="memoized"><a href="#memoized" class="headerlink" title="memoized"></a>memoized</h3><blockquote>
+<p>memoized函数将已经计算过的结果存储起来，下次再有相同的计算时可以直接从内存中读取</p>
+</blockquote>
+<p>有以下阶乘函数</p>
+<pre><code>let factorial = (n) =&gt; {
+    if (n == 0) return 1
+
     return n * factorial(n - 1)
 }
-</code></pre><p>上面的代码是一个阶乘函数，计算n的阶乘，要保存n个调用记录，复杂度O(n)</p>
-<img src="/2018/03/11/functional1/1-1.png">
-<p>通过缓存的方式将中个阶乘函数改写</p>
-<pre><code>let factorial (n, result) {
-    if (n === 1) return result
-    return factorial(n - 1, n * result)
-}
-</code></pre><img src="/2018/03/11/functional1/1-2.png">
-<p>上面的代码，我们将上一次的计算结果缓存，复杂度O(1)  </p>
-<h3 id="管道与组合"><a href="#管道与组合" class="headerlink" title="管道与组合"></a>管道与组合</h3><p>在UNIX和LINUX的平台中有许多用于日常任务的命令</p>
-<pre><code>ps -ef | grep nginx
-</code></pre><p>上面的命令用于查询系统中的nginx信息，这就是一个典型的组合方式。</p>
-<img src="/2018/03/11/functional1/1-3.png">
-<p>上图中，X和Y之间的变形关系是函数f，Y和Z的变形关系是g，那么X和Z之间的关系，就是g和f的组合函数： </p>
-<pre><code>g(f(x))
-</code></pre><p>另一种方式</p>
-<pre><code>foo(x).compose(f).compose(g)
-</code></pre><p>将值通过链式调用的方式逐级传递</p>
-<h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><ul>
-<li><a href="http://www.ruanyifeng.com/blog/2017/02/fp-tutorial.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2017/02/fp-tutorial.html</a></li>
-<li>《JavaScript ES6 函数编程入门经典》第1章 </li>
+</code></pre><p>此处没有什么特别的，但有一个问题，为了计算3的阶乘，必须要先计算2的阶乘，为什么不能直接给出结果呢？</p>
+<pre><code>const memoized = (fn) =&gt; {
+    let lookupTable = {}
+
+    return (arg) =&gt; lookupTable[arg] || (lookupTable[arg] = fn(arg))
+} 
+</code></pre><p>现在我们可以把factorial函数包裹进一个memoized函数来保留他的输出了</p>
+<pre><code>let fastFactorial = memoized (factorial) 
+</code></pre><p>现在调用 fastFactorial</p>
+<pre><code>fastFactorial(5)
+// 120
+// lookupTable为 Object: {0: 1, 1: 1, 2: 2, 3: 6, 4: 24, 5: 120}
+
+fastFactorial(3)
+// 6 直接从lookupTable返回
+</code></pre><p>以同样的方式运行，但是比之前会快很多。</p>
+<h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li>《JavaScript ES6 函数编程入门经典》第3章     </li>
 </ul>
 
       
@@ -543,8 +543,8 @@ longRunningFnBookKeeper.hasOwnPrototype(ip) ?
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/28/my-new-post/" rel="next" title="my new post">
-                <i class="fa fa-chevron-left"></i> my new post
+              <a href="/2018/04/07/functional2/" rel="next" title="函数式编程（二）：高阶函数（上）">
+                <i class="fa fa-chevron-left"></i> 函数式编程（二）：高阶函数（上）
               </a>
             
           </div>
@@ -552,10 +552,6 @@ longRunningFnBookKeeper.hasOwnPrototype(ip) ?
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/07/functional2/" rel="prev" title="函数式编程（二）：高阶函数（上）">
-                函数式编程（二）：高阶函数（上） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -713,7 +709,7 @@ longRunningFnBookKeeper.hasOwnPrototype(ip) ?
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性"><span class="nav-number">2.</span> <span class="nav-text">属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#引用透明"><span class="nav-number">2.1.</span> <span class="nav-text">引用透明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#声名式"><span class="nav-number">2.2.</span> <span class="nav-text">声名式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数式编程带来的好处"><span class="nav-number">3.</span> <span class="nav-text">函数式编程带来的好处</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#纯函数"><span class="nav-number">3.1.</span> <span class="nav-text">纯函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发代码"><span class="nav-number">3.2.</span> <span class="nav-text">并发代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可缓存"><span class="nav-number">3.3.</span> <span class="nav-text">可缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管道与组合"><span class="nav-number">3.4.</span> <span class="nav-text">管道与组合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附"><span class="nav-number">4.</span> <span class="nav-text">附</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考："><span class="nav-number">4.1.</span> <span class="nav-text">参考：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#理解闭包"><span class="nav-number">1.</span> <span class="nav-text">理解闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是闭包"><span class="nav-number">1.1.</span> <span class="nav-text">什么是闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#记住闭包生成的位置"><span class="nav-number">1.2.</span> <span class="nav-text">记住闭包生成的位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回顾sortBy函数"><span class="nav-number">1.3.</span> <span class="nav-text">回顾sortBy函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#真实的高阶函数"><span class="nav-number">2.</span> <span class="nav-text">真实的高阶函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#tap"><span class="nav-number">2.1.</span> <span class="nav-text">tap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unary"><span class="nav-number">2.2.</span> <span class="nav-text">unary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#once"><span class="nav-number">2.3.</span> <span class="nav-text">once</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#memoized"><span class="nav-number">2.4.</span> <span class="nav-text">memoized</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附"><span class="nav-number">3.</span> <span class="nav-text">附</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">3.1.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
             
 
           </div>

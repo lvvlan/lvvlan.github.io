@@ -118,7 +118,7 @@
 <meta property="og:site_name" content="lemonleon">
 <meta property="og:description" content="理解数据JavaScript数据类型 当一门语言允许函数作为任何其他数据类型使用时，函数被称为一等公民（First Class Citizens）  简单的将，JS支持如下几种数据类型：  Number String Boolean Object null undefined symbol  而函数也可以作为JS的一种数据类型，我们可以把函数存储在变量中，像操作其他类型数据一样操作他，当一门语言允">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-07T14:12:34.621Z">
+<meta property="og:updated_time" content="2018-04-15T14:24:10.178Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="函数式编程（二）：高阶函数（上）">
 <meta name="twitter:description" content="理解数据JavaScript数据类型 当一门语言允许函数作为任何其他数据类型使用时，函数被称为一等公民（First Class Citizens）  简单的将，JS支持如下几种数据类型：  Number String Boolean Object null undefined symbol  而函数也可以作为JS的一种数据类型，我们可以把函数存储在变量中，像操作其他类型数据一样操作他，当一门语言允">
@@ -244,7 +244,7 @@
         
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
-            归档<span class="badge">4</span>
+            归档<span class="badge">5</span>
               </a>
         </li>
       
@@ -517,6 +517,8 @@ fruit.sort()    // [&apos;apples&apos;, &apos;bananas&apos;, &apos;cherries&apos
 <pre><code>const sortBy = (property) =&gt; {
     return (a, b) =&gt; {
         let result = (a[property] &lt; b[property] ? -1 : (a[property] &gt; b[property]) ? 1 : 0)
+
+        return result
     }
 }   
 </code></pre><p>sortBy函数接收一个名为property的参数，并返回一个接收两个参数的新函数，现在我们可以这样调用</p>
@@ -565,6 +567,10 @@ people.sort(sortBy(&apos;lastname&apos;))
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/15/functional3/" rel="prev" title="函数式编程（二）：高阶函数（下）">
+                函数式编程（二）：高阶函数（下） <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -644,7 +650,7 @@ people.sort(sortBy(&apos;lastname&apos;))
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
