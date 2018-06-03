@@ -243,7 +243,7 @@
         
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
-            归档<span class="badge">6</span>
+            归档<span class="badge">7</span>
               </a>
         </li>
       
@@ -278,6 +278,269 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lvvlan.github.io/2018/06/03/functional5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lemonleon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/1.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lemonleon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/03/functional5/" itemprop="url">functional5</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-03T21:23:43+08:00">2018-06-03</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="柯里化"><a href="#柯里化" class="headerlink" title="柯里化"></a>柯里化</h2><blockquote>
+<p>柯里化是把一个多参数函数转化为一个嵌套的一元函数的过程</p>
+</blockquote>
+<p>假设有一个名为add的函数</p>
+<pre><code>const add = (x, y) =&gt; x + y
+</code></pre><p>这是一个简单的求和函数，没有特别之处。下面是add函数的柯里化版本</p>
+<pre><code>const addCurried = x =&gt; y =&gt; x + y
+</code></pre><p> 可以用如下方式调用</p>
+<pre><code>const addCurried(2)(2)
+</code></pre><p>我们手动的把接收两个参数的add函数转化为含有嵌套的一元函数addCurried。下面展示如何把该处理过程转化为一个名为curry的方法</p>
+<pre><code>const curry = function (binaryFn) {
+    return function (arg1) {
+        return function (arg2) {
+            return binaryFn(arg1, arg2)
+        }
+    }
+} 
+</code></pre><p>现在可以通过curry函数把add函数转化为一个柯里化版本</p>
+<pre><code>let autoCurriedAdd = curry(add)
+
+autoCurriedAdd(2)(2)    // 4
+</code></pre><h2 id="日志函数-应用柯里化"><a href="#日志函数-应用柯里化" class="headerlink" title="日志函数 - 应用柯里化"></a>日志函数 - 应用柯里化</h2><p>简单的loggerHelper函数</p>
+<pre><code>const loggerHelper = (mode, initMsg, errMsg, lineNo) =&gt; {
+    if (mode === &apos;DEBUG&apos;) {
+        console.debug(initMsg, errMsg + &apos;at line: &apos; + lineNo)
+    } else if (mode === &apos;ERROR&apos;) {
+        console.error(initMsg, errMsg + &apos;at line: &apos; + lineNo)
+    } else if (mode === &apos;WARN&apos;) {
+        console.warn(initMsg, errMsg + &apos;at line: &apos; + lineNo)
+    } else {
+        throw &apos;Wrong mode&apos;
+    }
+}   
+</code></pre><p>当团队中任何开发者需要向控制台打印State.js文件中的错误时，可以用以下方式使用函数</p>
+<pre><code>loggerHelper(&apos;ERROR&apos;, &apos;ERROR at State.js&apos;, &apos;Invalid argument passed&apos;, 23)
+loggerHelper(&apos;ERROR&apos;, &apos;ERROR at State.js&apos;, &apos;undefined argument&apos;, 223)
+loggerHelper(&apos;ERROR&apos;, &apos;ERROR at State.js&apos;, &apos;curry function is not defined&apos;, 3)
+loggerHelper(&apos;ERROR&apos;, &apos;ERROR at State.js&apos;, &apos;slice is not defined&apos;, 31)
+</code></pre><p> 不难看出，我们在所有的调用中都重复使用了mode和initMsg，能通过柯里化的方式调用吗？答案是可以的，但是目前我们的柯里化只能处理二元函数，那么多个参数该如何柯里化呢？下面我们完善curry函数，他可以处理任何含有多个参数的函数</p>
+<pre><code>let curry = (fn) =&gt; {
+    if (typeof fn !== &apos;function&apos;) throw new Error(&apos;No function provided&apos;)
+
+    return function curriedFn(...args) {
+        if (args.length &lt; fn.length) {
+            return function (...rest) {
+                return curriedFn.apply(null, args.concat(Array.from(rest)))
+            }
+        }
+
+        return fn.apply(null, args)
+    }
+}
+</code></pre><p>回顾日志函数，下面通过curry解决前面两个重复参数的问题</p>
+<pre><code>let ErrorLogger = curry(loggerHelper)(&apos;ERROR&apos;)(&apos;ERROR at State.js&apos;)  
+let DebugLogger = curry(loggerHelper)(&apos;DEBUG&apos;)(&apos;DEBUG at State.js&apos;)
+let WarnLogger = curry(loggerHelper)(&apos;WARN&apos;)(&apos;WARN at State.js&apos;)
+
+// 错误
+ErrorLogger(&apos;error message&apos;, 21)
+// 调试
+DebugLogger(&apos;debug message&apos;, 33)
+// 警告
+WarnLogger(&apos;warn message&apos;, 56)
+</code></pre><h2 id="柯里化实战"><a href="#柯里化实战" class="headerlink" title="柯里化实战"></a>柯里化实战</h2><h3 id="在数组内容中查找数字"><a href="#在数组内容中查找数字" class="headerlink" title="在数组内容中查找数字"></a>在数组内容中查找数字</h3><p>假设我们要查找含有数字的数组内容</p>
+<pre><code>let match = curry(function (exp, str) {
+    return str.match(exp)
+})
+
+let hasNumber = match(/[0-9]+/)
+
+let filter = curry(function (fn, arr) {
+    return arr.filter(fn)
+})   
+
+let findNumberInArray = filter(hasNumber)
+
+findNumberInArray([&apos;js&apos;, &apos;number1&apos;])    // [&apos;number1&apos;]
+</code></pre><h3 id="求数组的平方"><a href="#求数组的平方" class="headerlink" title="求数组的平方"></a>求数组的平方</h3><pre><code>let map = curry(function (fn, arr) {
+   return arr.map(fn)
+})
+
+let squareAll = map((x) =&gt; x * x)
+
+squareAll([1, 2, 3])   //[1, 4, 9]
+</code></pre><h2 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h2><h3 id="偏应用"><a href="#偏应用" class="headerlink" title="偏应用"></a>偏应用</h3><p>假设我们要每10毫秒做一组操作，可以通过setTimeout函数以如下方式实现</p>
+<pre><code>setTimeout(() =&gt; console.log(&apos;Do X task&apos;), 10)
+setTimeout(() =&gt; console.log(&apos;Do Y task&apos;), 10)
+</code></pre><p>我们为每个setTimeout函数调用都传入了10。能使用curry函数解决吗？答案是否定的，因为curry函数应用参数的处理方式是从左到右，由于我们想根据需要传递函数，将10保存为常量，所以不能以这种方式使用curry</p>
+<h3 id="实现偏函数"><a href="#实现偏函数" class="headerlink" title="实现偏函数"></a>实现偏函数</h3><pre><code>const partial = function (fn, ...partialArgs) {
+    let args = partialArgs
+    return function (...fullArguments) {
+        let arg = 0
+        for (let i = 0; i &lt; args.length &amp;&amp; arg &lt; fullArguments.length; i++) {
+            if (args[i] === undefined) {
+                args[i] = fullArguments[arg++]
+            }
+            return fn.apply(null, args)
+        }
+    }
+}
+</code></pre><p>对刚刚的问题应用偏函数</p>
+<pre><code>let delayTenMs = partial(setTimeout, undefined, 10)
+delayTenMs(() =&gt; console.log(&apos;delay ten ms!&apos;))
+</code></pre><p>另一个应用</p>
+<pre><code>let parseInt2 = partial(parseInt, undefined, 2)
+parseInt2(1010) // 10
+</code></pre><p>但是现在有个问题，如果我们在调用一次，传入不同的参数，却始终返回上一次的结果</p>
+<pre><code>parseInt2(10)   // 10
+</code></pre><p>这是由于我们将引用的args直接更改造成的，接下来我们改进这个偏函数</p>
+<pre><code>const partial2 = function (fn,...partialArgs){
+    let args = Array.from(partialArgs)
+    return function(...fullArguments) {
+        let arg = 0;
+
+        for (let i = 0; i &lt; args.length &amp;&amp; arg &lt; fullArguments.length; i++) {
+            if (partialArgs[i] === undefined) {
+                args[i] = fullArguments[arg++];
+            }
+            return fn.apply(this, args);
+        }
+    }
+}
+</code></pre><h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li>《JavaScript ES6 函数编程入门经典》第6章 </li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -1746,7 +2009,7 @@ longRunningFnBookKeeper.hasOwnPrototype(ip) ?
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
