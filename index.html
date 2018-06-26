@@ -243,7 +243,7 @@
         
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
-            归档<span class="badge">8</span>
+            归档<span class="badge">9</span>
               </a>
         </li>
       
@@ -278,6 +278,252 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lvvlan.github.io/2018/06/26/functional7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lemonleon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/1.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lemonleon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/26/functional7/" itemprop="url">函数式编程（六）：函子</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-26T08:25:12+08:00">2018-06-26</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="什么是函子"><a href="#什么是函子" class="headerlink" title="什么是函子"></a>什么是函子</h2><blockquote>
+<p>函子是一个普通对象，他实现了map函数，在遍历每个对象值的时候生成一个新对象</p>
+</blockquote>
+<h3 id="函子是容器"><a href="#函子是容器" class="headerlink" title="函子是容器"></a>函子是容器</h3><p>下面的代码创造了一个简单的容器，他能够持有任何传给他的值</p>
+<pre><code>class Container {
+    constructor (val) {
+        this.value = val
+    }
+}
+</code></pre><p>应用Container</p>
+<pre><code>let testValue = new Container(3)
+// Container(value: 3)
+</code></pre><p>通过of静态方法省略 new 关键字</p>
+<pre><code>class Container {
+    constructor (val) {
+        this.value = val
+    }
+    static of (val) {
+            return new this(val)
+        }
+}
+
+testValue = Container.of(3)
+// Container(value: 3)
+</code></pre><h3 id="函子实现了map方法"><a href="#函子实现了map方法" class="headerlink" title="函子实现了map方法"></a>函子实现了map方法</h3><p>map函数允许我们使用当前Container持有的值调用任何函数</p>
+<pre><code>class Container {
+    constructor (val) {
+        this.value = val
+    }
+
+    map (fn) {
+        return new Container(fn(this.value))
+    }
+}
+</code></pre><p>应用</p>
+<pre><code>let double = () =&gt; x + x
+
+Container.of(3).map(double) // Container(value: 6)
+</code></pre><p>map函数返回了以传入函数的执行结果为值的Container实例，所以允许我们进行链式操作</p>
+<pre><code>Container.of(3)
+            .map(double)
+            .map(double)
+            .map(double)    // Container(value: 24)
+</code></pre><h2 id="MayBe函子"><a href="#MayBe函子" class="headerlink" title="MayBe函子"></a>MayBe函子</h2><p>函子接受各种函数，处理容器内部的值。这里就有一个问题，容器内部的值可能是一个空值（比如null），而外部函数未必有处理空值的机制，如果传入空值，很可能就会出错。Maybe 函子就是为了解决这一类问题而设计的。简单说，它的map方法里面设置了空值检查。</p>
+<pre><code>class MayBe extends Container {
+    isNothing () {
+        return this.value === null || this.value === undefined
+    }
+
+    map (fn) {
+        return this.isNothing() ? MayBe.of(null) : MayBe.of(fn(this.value))
+    }
+}
+
+MayBe.of(null).map((s) =&gt; s.toUpperCase())  // MayBe {value: null}
+</code></pre><h2 id="ap函子"><a href="#ap函子" class="headerlink" title="ap函子"></a>ap函子</h2><p>  函子里面包含的值，完全可能是函数。我们可以想象这样一种情况，y一个函子的值是数值，另一干函子的值是函数。</p>
+<pre><code>function addTwo (x) {
+    return x + 2
+}
+
+const A = Container.of(2)
+const B = Container.of(addTwo)
+</code></pre><p>上面代码中，A函子的值是2，B函子的值是addTwo，有时我们想让B函子内部的函数可以用A函子内部的值，这时就需要用到ap函子</p>
+<pre><code>class Ap extends Container {
+    ap (fn) {
+        return Ap.of(this.value(fn.value))
+    }
+}
+
+Ap.of(addTwo).ap(Container.of(2))   // Ap {value: 4}
+</code></pre><p>ap函子的意义在于，对于那些多参的函数，可以从容器中取值，实现函子的链式操作</p>
+<pre><code>function add (x) {
+    return function (y) {
+        return x + y
+    }
+}    
+
+Ap.of(add).ap(Maybe.of(2)).ap(Maybe.of(3))  // Ap {value: 5}
+</code></pre><h2 id="Monad函子"><a href="#Monad函子" class="headerlink" title="Monad函子"></a>Monad函子</h2><p>函子是一个容器，可以包含任何值。函子之中再包含一个函子，也是完全合法的。但是，这样就会出现多层嵌套的函子。<code>Monad 函子的作用是，总是返回一个单层的函子。</code></p>
+<pre><code>class Monad {
+    constructor (val) {
+        this.value = val
+    }
+
+    map (fn) {
+        return new Monad(fn(this.value))
+    }
+
+    join () {
+        return this.value
+    }
+
+    chain (f) {
+        return this.map(f).join()
+    }
+
+      static of (val) {
+            return new this(val)
+        }
+}
+</code></pre><p>现在Monad可以帮我们打开嵌套的函子了</p>
+<pre><code>let example = Monad.of(Monad.of(5))
+
+example.chain((x) =&gt; x * x)
+</code></pre><h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li>《JavaScript ES6 函数编程入门经典》第8章  </li>
+<li><a href="http://www.ruanyifeng.com/blog/2017/02/fp-tutorial.html" target="_blank" rel="noopener">函数式编程入门教程</a>    </li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2287,7 +2533,7 @@ longRunningFnBookKeeper.hasOwnPrototype(ip) ?
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

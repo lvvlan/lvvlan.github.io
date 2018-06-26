@@ -110,28 +110,28 @@
   <meta name="keywords" content="functional," />
 
 
-<meta name="description" content="组合compose 将一个函数的输出作为另一个函数的输入  来看一个简单的compose函数，他的功能是将两个函数组合起来，并将其中一个函数的输入作为另一个函数的输出 const compose = (a, b) =&amp;gt; (c) =&amp;gt; a(b(c)) 假设我们想对一个给定的数字四舍五入求值，如果不适用组合，我们可以通过如下的做法 let data = parseFloat(&amp;apos;3">
+<meta name="description" content="什么是函子 函子是一个普通对象，他实现了map函数，在遍历每个对象值的时候生成一个新对象  函子是容器下面的代码创造了一个简单的容器，他能够持有任何传给他的值 class Container {     constructor (val) {         this.value = val     } } 应用Container let testValue = new Container(3)">
 <meta name="keywords" content="functional">
 <meta property="og:type" content="article">
-<meta property="og:title" content="函数式编程（五）：组合与管道">
-<meta property="og:url" content="http://lvvlan.github.io/2018/06/10/functional6/index.html">
+<meta property="og:title" content="函数式编程（六）：函子">
+<meta property="og:url" content="http://lvvlan.github.io/2018/06/26/functional7/index.html">
 <meta property="og:site_name" content="lemonleon">
-<meta property="og:description" content="组合compose 将一个函数的输出作为另一个函数的输入  来看一个简单的compose函数，他的功能是将两个函数组合起来，并将其中一个函数的输入作为另一个函数的输出 const compose = (a, b) =&amp;gt; (c) =&amp;gt; a(b(c)) 假设我们想对一个给定的数字四舍五入求值，如果不适用组合，我们可以通过如下的做法 let data = parseFloat(&amp;apos;3">
+<meta property="og:description" content="什么是函子 函子是一个普通对象，他实现了map函数，在遍历每个对象值的时候生成一个新对象  函子是容器下面的代码创造了一个简单的容器，他能够持有任何传给他的值 class Container {     constructor (val) {         this.value = val     } } 应用Container let testValue = new Container(3)">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-10T14:54:41.782Z">
+<meta property="og:updated_time" content="2018-06-26T00:26:13.410Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="函数式编程（五）：组合与管道">
-<meta name="twitter:description" content="组合compose 将一个函数的输出作为另一个函数的输入  来看一个简单的compose函数，他的功能是将两个函数组合起来，并将其中一个函数的输入作为另一个函数的输出 const compose = (a, b) =&amp;gt; (c) =&amp;gt; a(b(c)) 假设我们想对一个给定的数字四舍五入求值，如果不适用组合，我们可以通过如下的做法 let data = parseFloat(&amp;apos;3">
+<meta name="twitter:title" content="函数式编程（六）：函子">
+<meta name="twitter:description" content="什么是函子 函子是一个普通对象，他实现了map函数，在遍历每个对象值的时候生成一个新对象  函子是容器下面的代码创造了一个简单的容器，他能够持有任何传给他的值 class Container {     constructor (val) {         this.value = val     } } 应用Container let testValue = new Container(3)">
 
 
 
 
 
 
-  <link rel="canonical" href="http://lvvlan.github.io/2018/06/10/functional6/"/>
+  <link rel="canonical" href="http://lvvlan.github.io/2018/06/26/functional7/"/>
 
 
-  <title>函数式编程（五）：组合与管道 | lemonleon</title>
+  <title>函数式编程（六）：函子 | lemonleon</title>
   
 
 
@@ -295,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lvvlan.github.io/2018/06/10/functional6/">
+    <link itemprop="mainEntityOfPage" href="http://lvvlan.github.io/2018/06/26/functional7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lemonleon">
@@ -312,7 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">函数式编程（五）：组合与管道</h1>
+          <h1 class="post-title" itemprop="name headline">函数式编程（六）：函子</h1>
         
 
         <div class="post-meta">
@@ -324,7 +324,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-10T22:54:00+08:00">2018-06-10</time>
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-26T08:25:12+08:00">2018-06-26</time>
             
 
             
@@ -379,145 +379,113 @@
       
 
       
-        <h2 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h2><h3 id="compose"><a href="#compose" class="headerlink" title="compose"></a>compose</h3><blockquote>
-<p>将一个函数的输出作为另一个函数的输入</p>
+        <h2 id="什么是函子"><a href="#什么是函子" class="headerlink" title="什么是函子"></a>什么是函子</h2><blockquote>
+<p>函子是一个普通对象，他实现了map函数，在遍历每个对象值的时候生成一个新对象</p>
 </blockquote>
-<p>来看一个简单的compose函数，他的功能是将两个函数组合起来，并将其中一个函数的输入作为另一个函数的输出</p>
-<pre><code>const compose = (a, b) =&gt; (c) =&gt; a(b(c))
-</code></pre><p>假设我们想对一个给定的数字四舍五入求值，如果不适用组合，我们可以通过如下的做法</p>
-<pre><code>let data = parseFloat(&apos;3.56&apos;)
-let number = Math.round(data)   // 4
-</code></pre><p>下面通过compose函数解决该问题</p>
-<pre><code>let number = compose(Math.round, parseFloat)
-number(&apos;3.56&apos;)  // 4
-</code></pre><p>上面的过程，就是函数式的组合！我们将两个函数组合在一起以便能即时地构建出一个新函数！值得一提的是，函数Math.round和parseFloat只有在调用number函数的时候才会执行</p>
-<p>下面看另一个栗子：求一个字符串中的单词数量</p>
-<pre><code>let splitIntoSpaces = (str) =&gt; str.split(&apos; &apos;)
-let count = (arr) =&gt; arr.length
-
-const countWords = compose(count, splitIntoSpaces)
-
-countWords(&apos;hello your reading about composition&apos;)  // 5
-</code></pre><h3 id="引入curry与partial"><a href="#引入curry与partial" class="headerlink" title="引入curry与partial"></a>引入curry与partial</h3><p>现在的compose，仅当函数接收一个参数时，才能将函数组合，那多参的函数该如何组合呢？我们可以通过上一章定义的curry和partial函数来实现。</p>
-<p>回顾一下我们之前的map与filter函数：</p>
-<ul>
-<li><p>map</p>
-<pre><code>const map = (arr, fn) =&gt; {
-    let results = []
-    for(let value of arr){
-        results.push(fn(value))
+<h3 id="函子是容器"><a href="#函子是容器" class="headerlink" title="函子是容器"></a>函子是容器</h3><p>下面的代码创造了一个简单的容器，他能够持有任何传给他的值</p>
+<pre><code>class Container {
+    constructor (val) {
+        this.value = val
     }
-    return results
+}
+</code></pre><p>应用Container</p>
+<pre><code>let testValue = new Container(3)
+// Container(value: 3)
+</code></pre><p>通过of静态方法省略 new 关键字</p>
+<pre><code>class Container {
+    constructor (val) {
+        this.value = val
+    }
+    static of (val) {
+            return new this(val)
+        }
 }
 
-map([1, 2, 3], (x) =&gt; x * x)    // [1, 4, 9]
-</code></pre></li>
-<li><p>filter</p>
-<pre><code>const filter = (arr, fn) =&gt; {
-    let results = []
-    for(let value of arr){
-        (fn(value)) ? results.push(value) : undefined
+testValue = Container.of(3)
+// Container(value: 3)
+</code></pre><h3 id="函子实现了map方法"><a href="#函子实现了map方法" class="headerlink" title="函子实现了map方法"></a>函子实现了map方法</h3><p>map函数允许我们使用当前Container持有的值调用任何函数</p>
+<pre><code>class Container {
+    constructor (val) {
+        this.value = val
     }
-    return results
+
+    map (fn) {
+        return new Container(fn(this.value))
+    }
+}
+</code></pre><p>应用</p>
+<pre><code>let double = () =&gt; x + x
+
+Container.of(3).map(double) // Container(value: 6)
+</code></pre><p>map函数返回了以传入函数的执行结果为值的Container实例，所以允许我们进行链式操作</p>
+<pre><code>Container.of(3)
+            .map(double)
+            .map(double)
+            .map(double)    // Container(value: 24)
+</code></pre><h2 id="MayBe函子"><a href="#MayBe函子" class="headerlink" title="MayBe函子"></a>MayBe函子</h2><p>函子接受各种函数，处理容器内部的值。这里就有一个问题，容器内部的值可能是一个空值（比如null），而外部函数未必有处理空值的机制，如果传入空值，很可能就会出错。Maybe 函子就是为了解决这一类问题而设计的。简单说，它的map方法里面设置了空值检查。</p>
+<pre><code>class MayBe extends Container {
+    isNothing () {
+        return this.value === null || this.value === undefined
+    }
+
+    map (fn) {
+        return this.isNothing() ? MayBe.of(null) : MayBe.of(fn(this.value))
+    }
+}
+
+MayBe.of(null).map((s) =&gt; s.toUpperCase())  // MayBe {value: null}
+</code></pre><h2 id="ap函子"><a href="#ap函子" class="headerlink" title="ap函子"></a>ap函子</h2><p>  函子里面包含的值，完全可能是函数。我们可以想象这样一种情况，y一个函子的值是数值，另一干函子的值是函数。</p>
+<pre><code>function addTwo (x) {
+    return x + 2
+}
+
+const A = Container.of(2)
+const B = Container.of(addTwo)
+</code></pre><p>上面代码中，A函子的值是2，B函子的值是addTwo，有时我们想让B函子内部的函数可以用A函子内部的值，这时就需要用到ap函子</p>
+<pre><code>class Ap extends Container {
+    ap (fn) {
+        return Ap.of(this.value(fn.value))
+    }
+}
+
+Ap.of(addTwo).ap(Container.of(2))   // Ap {value: 4}
+</code></pre><p>ap函子的意义在于，对于那些多参的函数，可以从容器中取值，实现函子的链式操作</p>
+<pre><code>function add (x) {
+    return function (y) {
+        return x + y
+    }
 }    
-</code></pre></li>
-</ul>
-<p>我们不能直接将map和filter函数进行组合，因为他们都接收两个参数，第一个参数是数组，第二个参数是操作数组的函数，但是我们可以借助于partial函数。</p>
-<p>假设我们有如下数据</p>
-<pre><code>let apressBooks = [
-  {
-    &quot;id&quot;: 111,
-    &quot;title&quot;: &quot;C# 6.0&quot;,
-    &quot;author&quot;: &quot;ANDREW TROELSEN&quot;,
-    &quot;rating&quot;: [4.7],
-    &quot;reviews&quot;: [{good : 4 , excellent : 12}]
-  },
-  {
-    &quot;id&quot;: 222,
-    &quot;title&quot;: &quot;Efficient Learning Machines&quot;,
-    &quot;author&quot;: &quot;Rahul Khanna&quot;,
-    &quot;rating&quot;: [4.5],
-    &quot;reviews&quot;: []
-  },
-  {
-    &quot;id&quot;: 333,
-    &quot;title&quot;: &quot;Pro AngularJS&quot;,
-    &quot;author&quot;: &quot;Adam Freeman&quot;,
-    &quot;rating&quot;: [4.0],
-    &quot;reviews&quot;: []
-  },
-  {
-    &quot;id&quot;: 444,
-    &quot;title&quot;: &quot;Pro ASP.NET&quot;,
-    &quot;author&quot;: &quot;Adam Freeman&quot;,
-    &quot;rating&quot;: [4.2],
-    &quot;reviews&quot;: [{good : 14 , excellent : 12}]
-  }
-]
-</code></pre><p>同时我们定义一些辅助的小函数</p>
-<pre><code>// 获取满分评价图书
-let filterOutStandingBooks = (book) =&gt; book.rating[0] === 5
-// 获取评价大于4.5的图书
-let filterGoodBooks = (book) =&gt; book.rating[0] &gt; 4.5
-// 获取评价小于3.5的图书
-let filterBadBooks = (book) =&gt; book.rating[0] &lt; 3.5
-// 获取图书的title和author
-let projectTitleAndAuthor = (book) =&gt; ({title: book.title, author: book.author})
-// 获取图书的author
-let projectAuthor = (book) =&gt; ({author: book.author})
-// 获取图书的title
-let projectTitle = (book) =&gt; ({title: book.title})
-</code></pre><p>现在，我们想获取评级高于4.5的图书的标题和作者，我们可以只用compose和partial实现</p>
-<pre><code>let queryGoodBooks = partial(filter, undefined, filterGoodBooks)
-let mapTitleAndAuthor = partial(map, undefined, projectTitleAndAuthor)
 
-let titleAndAuthorForGoodBooks = compose(mapTitleAndAuthor, queryGoodBooks)
+Ap.of(add).ap(Maybe.of(2)).ap(Maybe.of(3))  // Ap {value: 5}
+</code></pre><h2 id="Monad函子"><a href="#Monad函子" class="headerlink" title="Monad函子"></a>Monad函子</h2><p>函子是一个容器，可以包含任何值。函子之中再包含一个函子，也是完全合法的。但是，这样就会出现多层嵌套的函子。<code>Monad 函子的作用是，总是返回一个单层的函子。</code></p>
+<pre><code>class Monad {
+    constructor (val) {
+        this.value = val
+    }
 
-titleAndAuthorForGoodBooks(apressBooks) 
-// 输出
-[{
-    author: &quot;ANDREW TROELSEN&quot;
-    title: &quot;C# 6.0&quot;
-}]   
-</code></pre><p><code>组合的思想就是把小函数组合成一个大函数，简单的函数容易阅读、测试和维护</code></p>
-<h3 id="组合多个函数"><a href="#组合多个函数" class="headerlink" title="组合多个函数"></a>组合多个函数</h3><p>当前版本的compose只能组合两个给定的函数，如何组合三个、四个或者更多函数呢？下面重写compose函数，以便它能够即时地组合多个函数</p>
-<pre><code>const compose = (...args) =&gt; (value)
-                =&gt; reduce(args.reverse(), (acc, fn) =&gt; fn(acc), value)
-</code></pre><p>下面验证改写过的compose函数，在第一个例子中，假设我们想知道给定字符串的单词数是奇数还是偶数</p>
-<pre><code>// 验证奇数偶数
-let oddOrEven = (ip) =&gt; ip % 2 === 0 ? &apos;even&apos; : &apos;odd&apos;
-// 通过compose将三个函数组合起来
-let oddOrEvenWords = compose(oddOrEven, count, splitIntoSpaces)
+    map (fn) {
+        return new Monad(fn(this.value))
+    }
 
-oddOrEvenWords(&apos;hello your reading about composition&apos;)  // &apos;odd&apos;
-</code></pre><h2 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h2><h3 id="pipe"><a href="#pipe" class="headerlink" title="pipe"></a>pipe</h3><p>compose函数数据流的运行机制，是从右至左，因为最右侧的函数首先执行，将数据传递给下一个函数，以此类推，最左侧的函数最后执行。但也有另外一种方式：从左至右执行，最左侧的函数最先执行，最右侧的函数最后执行。类似于Unix下的 ‘|’ 操作，Unix命令的数据流是从左至右的。我们将实现一个新的名为pipe的函数，他与compose所做的事情相同，只不过改变了数据流的方向</p>
-<pre><code>const pipe = (...args) =&gt; (value)
-                =&gt; reduce(args, (acc, fn) =&gt; fn(acc), value)
-</code></pre><p>下面通过重新执行上街的例子快速检查一下pipe函数</p>
-<pre><code>let oddOrEvenWords = pipe(splitIntoSpaces, count, oddOrEven)
+    join () {
+        return this.value
+    }
 
-oddOrEvenWords(&apos;hello your reading about composition&apos;)  // &apos;odd&apos; 
-</code></pre><h2 id="组合的优势"><a href="#组合的优势" class="headerlink" title="组合的优势"></a>组合的优势</h2><h3 id="组合满足结合律"><a href="#组合满足结合律" class="headerlink" title="组合满足结合律"></a>组合满足结合律</h3><p>函数式组合总是满足结合律</p>
-<pre><code>compose(f, compose(g, h)) === compose(compose(f, g), h)
-</code></pre><p>结合律带来的好处就是允许我们把函数组合到各自所需的compose函数中</p>
-<pre><code>const countWords = compose(count, splitIntoSpaces)
-const oddOrEvenWords = compose(oddOrEven, countWords)
+    chain (f) {
+        return this.map(f).join()
+    }
 
-// or
-const countOddOrEven = compose(oddOrEven, count)
-const oddOrEvenWords = compose(countOddOrEven, splitIntoSpaces)
-</code></pre><h3 id="使用tap函数调试"><a href="#使用tap函数调试" class="headerlink" title="使用tap函数调试"></a>使用tap函数调试</h3><p>tap函数是underscore.js中的一个函数，主要左右是在一个链式调用中对中间结果执行某些操作。我们定义一个类似的identity函数，主要实现打印compose中间结果</p>
-<pre><code>const identity = (ip) =&gt; {
-    console.log(ip)
-    return ip
+      static of (val) {
+            return new this(val)
+        }
 }
-</code></pre><p>接下来就可以配合compose函数使用</p>
-<pre><code>compose(oddOrEven, count, identity, splitIntoSpaces)(&apos;test string&apos;)
-// 输出
-[&apos;test&apos;, &apos;string&apos;]
-&apos;even&apos;    
+</code></pre><p>现在Monad可以帮我们打开嵌套的函子了</p>
+<pre><code>let example = Monad.of(Monad.of(5))
+
+example.chain((x) =&gt; x * x)
 </code></pre><h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
-<li>《JavaScript ES6 函数编程入门经典》第7章  </li>
+<li>《JavaScript ES6 函数编程入门经典》第8章  </li>
+<li><a href="http://www.ruanyifeng.com/blog/2017/02/fp-tutorial.html" target="_blank" rel="noopener">函数式编程入门教程</a>    </li>
 </ul>
 
       
@@ -549,8 +517,8 @@ const oddOrEvenWords = compose(countOddOrEven, splitIntoSpaces)
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/03/functional5/" rel="next" title="函数式编程（四）：柯里化与偏应用">
-                <i class="fa fa-chevron-left"></i> 函数式编程（四）：柯里化与偏应用
+              <a href="/2018/06/10/functional6/" rel="next" title="函数式编程（五）：组合与管道">
+                <i class="fa fa-chevron-left"></i> 函数式编程（五）：组合与管道
               </a>
             
           </div>
@@ -558,10 +526,6 @@ const oddOrEvenWords = compose(countOddOrEven, splitIntoSpaces)
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/06/26/functional7/" rel="prev" title="函数式编程（六）：函子">
-                函数式编程（六）：函子 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -719,7 +683,7 @@ const oddOrEvenWords = compose(countOddOrEven, splitIntoSpaces)
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#组合"><span class="nav-number">1.</span> <span class="nav-text">组合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#compose"><span class="nav-number">1.1.</span> <span class="nav-text">compose</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引入curry与partial"><span class="nav-number">1.2.</span> <span class="nav-text">引入curry与partial</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组合多个函数"><span class="nav-number">1.3.</span> <span class="nav-text">组合多个函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管道"><span class="nav-number">2.</span> <span class="nav-text">管道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pipe"><span class="nav-number">2.1.</span> <span class="nav-text">pipe</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组合的优势"><span class="nav-number">3.</span> <span class="nav-text">组合的优势</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#组合满足结合律"><span class="nav-number">3.1.</span> <span class="nav-text">组合满足结合律</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用tap函数调试"><span class="nav-number">3.2.</span> <span class="nav-text">使用tap函数调试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附"><span class="nav-number">4.</span> <span class="nav-text">附</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">4.1.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是函子"><span class="nav-number">1.</span> <span class="nav-text">什么是函子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函子是容器"><span class="nav-number">1.1.</span> <span class="nav-text">函子是容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函子实现了map方法"><span class="nav-number">1.2.</span> <span class="nav-text">函子实现了map方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MayBe函子"><span class="nav-number">2.</span> <span class="nav-text">MayBe函子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ap函子"><span class="nav-number">3.</span> <span class="nav-text">ap函子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Monad函子"><span class="nav-number">4.</span> <span class="nav-text">Monad函子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附"><span class="nav-number">5.</span> <span class="nav-text">附</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">5.1.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
             
 
           </div>
