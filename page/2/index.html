@@ -243,7 +243,7 @@
         
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
-            归档<span class="badge">12</span>
+            归档<span class="badge">15</span>
               </a>
         </li>
       
@@ -278,6 +278,835 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lvvlan.github.io/2018/04/15/functional3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lemonleon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/1.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lemonleon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/15/functional3/" itemprop="url">函数式编程（二）：高阶函数（下）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-15T22:24:25+08:00">2018-04-15</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="理解闭包"><a href="#理解闭包" class="headerlink" title="理解闭包"></a>理解闭包</h2><h3 id="什么是闭包"><a href="#什么是闭包" class="headerlink" title="什么是闭包"></a>什么是闭包</h3><p>简言之，闭包就是一个内部函数。在另一个函数内部的函数，称为内部函数。</p>
+<pre><code>function outer () {
+    function inner () {}
+}
+</code></pre><p>这就是闭包。函数inner被称为闭包函数。</p>
+<p>闭包有三个可访问的作用域</p>
+<ul>
+<li>在他自身声明之内声明的变量</li>
+<li>对全局变量的访问</li>
+<li>对外部函数变量的访问</li>
+</ul>
+<hr>
+<pre><code>function outer () {
+    function inner () {
+        let a = 5
+        console.log(a)
+    }
+    inner()
+}
+</code></pre><p><strong>当inner函数被调用的时候，控制台会输出5（闭包函数可以访问在他自身声明之内声明的变量）</strong></p>
+<pre><code>let global = &apos;global&apos;
+
+function outer () {
+    function inner () {
+        let a = 5
+        console.log(global)
+    }
+    inner()
+} 
+</code></pre><p><strong>当inner函数被调用的时候，控制台会输出’global’（闭包函数可以访问全局变量）</strong></p>
+<pre><code>let global = &apos;global&apos;
+
+function outer () {
+    let out = &apos;out&apos;
+    function inner () {
+        let a = 5
+        console.log(out)
+    }
+    inner()
+} 
+</code></pre><p><strong>当inner函数被调用的时候，控制台会输出’out’</strong>    </p>
+<h3 id="记住闭包生成的位置"><a href="#记住闭包生成的位置" class="headerlink" title="记住闭包生成的位置"></a>记住闭包生成的位置</h3><p>如下代码</p>
+<pre><code>let fn = (arg) =&gt; {
+    let outer = &apos;Visible&apos;
+    let innerFn = () =&gt; {
+        console.log(outer)
+        console.log(arg)
+    }
+
+    return innerFn
+}
+</code></pre><p>innerFn对于fn来说，是一个闭包函数，并且fn被调用后返回了innerFn。</p>
+<pre><code>let closureFn = fn(5)
+closureFn() // Visible; 5   
+</code></pre><p>fn被调用时，返回了innerFn，当innerFn被返回时，JavaScript执行引擎视innerFn为一个闭包，如上一小节所说，闭包有三个作用域层级。这三个作用域层级（arg，outer值将被设置到inner的作用域层级中）在innerFn返回时都被设置了！返回函数的引用存储在了closureFn中。如此，当closureFn通过作用域链被调用时就记住了arg、outer的值。  </p>
+<h3 id="回顾sortBy函数"><a href="#回顾sortBy函数" class="headerlink" title="回顾sortBy函数"></a>回顾sortBy函数</h3><p>快速回顾一下上一篇中定义和使用的sortBy函数</p>
+<pre><code>const sortBy = (property) =&gt; {
+    return (a, b) =&gt; {
+        let result = (a[property] &lt; b[property] ? -1 : (a[property] &gt; b[property]) ? 1 : 0)
+
+        return result
+    }
+}
+</code></pre><p>当以如下方式调用sortBy函数</p>
+<pre><code>sortBy(&apos;firstname&apos;)
+</code></pre><p>sortBy函数返回了一个接受两个参数的新函数</p>
+<pre><code>(a, b) =&gt; (/* 实现 */)
+</code></pre><p>这时返回的函数就能够访问property参数，所以就可以根据传入的property值写对应的逻辑</p>
+<h2 id="真实的高阶函数"><a href="#真实的高阶函数" class="headerlink" title="真实的高阶函数"></a>真实的高阶函数</h2><h3 id="tap"><a href="#tap" class="headerlink" title="tap"></a>tap</h3><blockquote>
+<p>tap函数是一个简单的函数，他将接受一个value并返回一个包含value的闭包函数，该函数将被执行</p>
+</blockquote>
+<pre><code>const tap = (value) =&gt; (fn) =&gt; (
+    typeof(fn) === &apos;function&apos; &amp;&amp; fn(value),
+    console.log(value)
+)
+
+tap(&apos;fun&apos;)((it) =&gt; console.log(&apos;vaule is: &apos;, it))
+// value is  fun
+// fun
+</code></pre><h3 id="unary"><a href="#unary" class="headerlink" title="unary"></a>unary</h3><blockquote>
+<p>unary接受一个给定多个参数的函数，并把它转换为一个只接受一个参数的函数</p>
+</blockquote>
+<p>有数组[‘1’, ‘2’, ‘3’]，我期望能够将数组中的每一项改为number，我们可以利用数组的map方法</p>
+<pre><code>[&apos;1&apos;, &apos;2&apos;, &apos;3&apos;].map(parseInt)
+// [1, NaN, NaN]
+</code></pre><p>然而返回的并不是我们所期望，map函数参数中传入的函数接收两个参数，第一个是数组中的每一项，第二个该项的索引。parseInt函数接收两个参数，第一个是将要转化的字符串，第二个按照几进制转换，默认10进制。由此可见，当进行到数组的第二项，parseInt函数接收到的第一个参数是’2’,第二个参数是1，所以会返回NaN。</p>
+<pre><code>const unary = (fn) =&gt; fn.length &lt;= 1 ? fn : (arg) =&gt; fn(arg)
+</code></pre><p>unary函数接收一个函数为参数，如果这个函数接收的参数个数小于等于1什么都不做，否则返回一个新函数，他只接受一个参数arg</p>
+<p>接下来我们可以通过unary函数再来完成上述任务</p>
+<pre><code>[&apos;1&apos;, &apos;2&apos;, &apos;3&apos;].map(unary(parseInt)) 
+// [1, 2, 3]
+</code></pre><h3 id="once"><a href="#once" class="headerlink" title="once"></a>once</h3><blockquote>
+<p>once函数的任务是只运行一次给定的函数</p>
+</blockquote>
+<pre><code>const once = (fn) =&gt; {
+    let done = false
+
+    return function (...args) {
+        return done ? undefined : ((done = true), fn.apply(this, args))
+    }
+}    
+</code></pre><p>下面我们来快速检测一下once函数</p>
+<pre><code>const doPayment = once(() =&gt; console.log(&apos;doPayment is done!&apos;))
+
+// 执行第一次
+doPayment() // doPayment is done!
+// 执行第二次
+doPayment() // undefined  
+</code></pre><h3 id="memoized"><a href="#memoized" class="headerlink" title="memoized"></a>memoized</h3><blockquote>
+<p>memoized函数将已经计算过的结果存储起来，下次再有相同的计算时可以直接从内存中读取</p>
+</blockquote>
+<p>有以下阶乘函数</p>
+<pre><code>let factorial = (n) =&gt; {
+    if (n == 0) return 1
+
+    return n * factorial(n - 1)
+}
+</code></pre><p>此处没有什么特别的，但有一个问题，为了计算3的阶乘，必须要先计算2的阶乘，为什么不能直接给出结果呢？</p>
+<pre><code>const memoized = (fn) =&gt; {
+    let lookupTable = {}
+
+    return (arg) =&gt; lookupTable[arg] || (lookupTable[arg] = fn(arg))
+} 
+</code></pre><p>现在我们可以把factorial函数包裹进一个memoized函数来保留他的输出了</p>
+<pre><code>let fastFactorial = memoized (factorial) 
+</code></pre><p>现在调用 fastFactorial</p>
+<pre><code>fastFactorial(5)
+// 120
+// lookupTable为 Object: {0: 1, 1: 1, 2: 2, 3: 6, 4: 24, 5: 120}
+
+fastFactorial(3)
+// 6 直接从lookupTable返回
+</code></pre><p>以同样的方式运行，但是比之前会快很多。</p>
+<h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li>《JavaScript ES6 函数编程入门经典》第3章     </li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lvvlan.github.io/2018/04/07/functional2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lemonleon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/1.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lemonleon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/07/functional2/" itemprop="url">函数式编程（二）：高阶函数（上）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-07T22:11:34+08:00">2018-04-07</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="理解数据"><a href="#理解数据" class="headerlink" title="理解数据"></a>理解数据</h2><h3 id="JavaScript数据类型"><a href="#JavaScript数据类型" class="headerlink" title="JavaScript数据类型"></a>JavaScript数据类型</h3><blockquote>
+<p>当一门语言允许函数作为任何其他数据类型使用时，函数被称为<strong>一等公民（First Class Citizens）</strong></p>
+</blockquote>
+<p>简单的将，JS支持如下几种数据类型：</p>
+<ul>
+<li>Number</li>
+<li>String</li>
+<li>Boolean</li>
+<li>Object</li>
+<li>null</li>
+<li>undefined</li>
+<li>symbol</li>
+</ul>
+<p>而<strong>函数也可以作为JS的一种数据类型</strong>，我们可以把函数存储在变量中，像操作其他类型数据一样操作他，当一门语言允许函数作为任何其他数据类型使用时，函数被称为<strong>一等公民（First Class Citizens）</strong></p>
+<h3 id="存储函数"><a href="#存储函数" class="headerlink" title="存储函数"></a>存储函数</h3><p>把函数存储到一个变量中：</p>
+<pre><code>let fn = () =&gt; {}
+</code></pre><p>上述代码中，fn就是一个指向函数数据类型的变量，运行下面代码检测fn的类型</p>
+<pre><code>typeof fn   //function
+</code></pre><p>既然fn是函数的引用，那就可以这样调用他：<code>fn()</code></p>
+<h3 id="传递函数"><a href="#传递函数" class="headerlink" title="传递函数"></a>传递函数</h3><p>将函数以参数的形式传入另一个函数中</p>
+<pre><code>let tellType = (arg) =&gt; {
+    console.log(typeof arg)
+}
+</code></pre><p>像tellType传入参数并看他的执行结果</p>
+<pre><code>let fn = () =&gt; {
+    console.log(&apos;I&apos;m a function&apos;)
+}    
+
+tellType(fn) // function
+</code></pre><p>如上述代码所示，我们成功的打印出了fn的类型</p>
+<h3 id="返回函数"><a href="#返回函数" class="headerlink" title="返回函数"></a>返回函数</h3><p>既然函数也是JavaScript中的数据，就能把他们从其他函数中返回</p>
+<pre><code>let crazy = () =&gt; String
+crazy() // String() { [native code] }
+</code></pre><p>调用crazy函数返回了一个String函数，他只返回了函数的引用，并没有执行。因此可以暂存返回函数的引用，并以如下方式调用</p>
+<pre><code>let fn = crazy()
+fn(&apos;HOC&apos;)   // HOC
+</code></pre><p>或者</p>
+<pre><code>crazy()(&apos;HOC&apos;)  // HOC
+</code></pre><h2 id="抽象和高阶函数"><a href="#抽象和高阶函数" class="headerlink" title="抽象和高阶函数"></a>抽象和高阶函数</h2><h3 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h3><p>从具体事物抽出、概括出它们共同的方面、本质属性与关系等，而将个别的、非本质的方面、属性与关系舍弃，这种思维过程，称为抽象。</p>
+<h3 id="通过高阶函数实现抽象"><a href="#通过高阶函数实现抽象" class="headerlink" title="通过高阶函数实现抽象"></a>通过高阶函数实现抽象</h3><pre><code>const forEach = (arr, fn) =&gt; {
+    for (let i = 0; i &lt; arr.length; i++){
+        fn(arr[i])
+    }
+}  
+</code></pre><p>上面的forEach函数抽象出了遍历数组的问题。使用API forEach的用户不需要理解forEach是如何实现遍历的，如此问题就被抽象出来了。</p>
+<p>创建一个名为unless的函数，这是一个简单的函数，接收一个断言（值为true或false）。如果predicate为false，则调用fn</p>
+<pre><code>const unless = (predicate, fn) =&gt; {
+    if (!predicate) {
+        fn()
+    }
+}
+</code></pre><p>有了unless函数就可以编写一段简洁的代码来查找一个列表中的偶数</p>
+<pre><code>forEach([1,2,3,4,5,6,7], (number) =&gt; {
+    unless((number % 2), () =&gt; {
+        console.log(number, &apos; is even&apos;)
+    })
+})
+
+// 2 &apos; is even&apos;
+// 4 &apos; is even&apos;
+// 6 &apos; is even&apos;
+</code></pre><p>上面的例子会从数组中获取偶数，如果要从0到100中获取偶数，该如何做呢？</p>
+<p>定义一个times函数，times是一个简单的高阶函数，他接收一个数字，并根据调用者提供的次数调用传入的函数。</p>
+<pre><code>const times = (times, fn) =&gt; {
+    for (let i = 0; i &lt; times; i++){
+        fn(i)
+    }
+}    
+</code></pre><p>现在我们解决如何获取0到100中的偶数问题</p>
+<pre><code>times(100, (n) =&gt; {
+    unless((n % 2), () =&gt; {
+        console.log(n, &apos;is even&apos;)
+    })
+})
+</code></pre><p>我们将解题过程中的每一步都抽象了出来，使当前的函数只关心当前的工作，最后再以组合的形式得到了答案，其中过程清晰明了，于是有了简洁的代码</p>
+<h2 id="真实的高阶函数"><a href="#真实的高阶函数" class="headerlink" title="真实的高阶函数"></a>真实的高阶函数</h2><h3 id="简单的高阶函数"><a href="#简单的高阶函数" class="headerlink" title="简单的高阶函数"></a>简单的高阶函数</h3><h4 id="every"><a href="#every" class="headerlink" title="every"></a>every</h4><blockquote>
+<p>every函数接收两个参数，一个数组和一个函数，他使用传入的函数检查数组中的所有元素是否为true</p>
+</blockquote>
+<pre><code>const every = (arr, fn) =&gt; {
+    let result = true
+
+    for (const value of arr) {
+        result = result &amp;&amp; fn(value)
+    }
+
+    return result
+}
+
+every([NaN, NaN, NaN], isNaN)   // true
+evert([NaN, NaN, 4], isNaN)     // false
+</code></pre><h3 id="some"><a href="#some" class="headerlink" title="some"></a>some</h3><blockquote>
+<p>some函数与every函数类似，不同的是如果数组中有一个元素通过传入的函数返回true，some函数就返回true</p>
+</blockquote>
+<pre><code>const some = (arr, fn) =&gt; {
+    let result = true
+
+    for (const value of arr) {
+        result = result || fn(value)
+    }
+
+    return result
+} 
+
+some([NaN, NaN, 4], isNaN)  // true
+some([2, 3, 4], isNaN)  // false&apos;
+</code></pre><h3 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h3><p>sort函数是JavaScript的Array原型的内置函数。假设我们需要 给一个水果列表排序</p>
+<pre><code>let fruit = [&apos;cherries&apos;, &apos;apples&apos;, &apos;bananas&apos;]
+
+fruit.sort()    // [&apos;apples&apos;, &apos;bananas&apos;, &apos;cherries&apos;]
+</code></pre><p>sort函数是一个高阶函数，他接收一个函数作为参数，该函数用于帮助sort函数决定排序逻辑。</p>
+<pre><code>arr.sort([compareFunction])
+</code></pre><p>compareFunction是可选的，如果compareFunction未提供，元素将被转化为字符串并按Unicode编码点顺序排列。<br>在编写compareFunction之前，让我们看一下他实际应该实现什么</p>
+<pre><code>function compare(a, b) {
+    if (根据某种排序标准a小于b) {
+        return -1
+    }
+
+    if (根据某种排序标准a大于b) {
+        return 1
+    }
+
+    // a一定等于b
+    return 0
+}    
+</code></pre><p>假设我们有如下数据</p>
+<pre><code>let people = [
+    { firstname: &apos;aaFirstName&apos;, lastname: &apos;ccLastName&apos; },
+    { firstname: &apos;ccFirstName&apos;, lastname: &apos;aaLastName&apos; },
+    { firstname: &apos;bbFirstName&apos;, lastname: &apos;bbLastName&apos; }
+]
+</code></pre><p>现在需要使用firstname键对数据进行排序</p>
+<pre><code>pepple.sort((a, b) =&gt; {return (a.firstname &lt; b.firstname) ? -1 : (a.firstname &gt; b.firstname) ? 1 : 0})
+</code></pre><p>如果现在要根据lastname排序</p>
+<pre><code>pepple.sort((a, b) =&gt; {return (a.lastname &lt; b.lastname) ? -1 : (a.lastname &gt; b.lastname) ? 1 : 0})
+</code></pre><p>知道了compareFunction的算法，我们能做的更好吗？上面的例子中可以看到，我们几乎用重复的代码编写了两个函数去比较firstname和lastname。我们能把上面的逻辑抽象到一个函数中去吗？</p>
+<pre><code>const sortBy = (property) =&gt; {
+    return (a, b) =&gt; {
+        let result = (a[property] &lt; b[property] ? -1 : (a[property] &gt; b[property]) ? 1 : 0)
+
+        return result
+    }
+}   
+</code></pre><p>sortBy函数接收一个名为property的参数，并返回一个接收两个参数的新函数，现在我们可以这样调用</p>
+<pre><code>people.sort(sortBy(&apos;firstname&apos;))
+people.sort(sortBy(&apos;lastname&apos;))
+</code></pre><p>sort函数接收被sortBy函数返回的compareFunction，我们再次抽象出了compareFunction背后的逻辑，使得用户专注与真正的需求。那么持有property参数值的返回函数是如何得来的？下一篇中我们将讨论这个问题。    </p>
+<h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li>《JavaScript ES6 函数编程入门经典》第3章 </li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lvvlan.github.io/2018/03/11/functional1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lemonleon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/1.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lemonleon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/11/functional1/" itemprop="url">函数式编程(一)：简介</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-11T22:56:21+08:00">2018-03-11</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>先来看下数学上的函数：</p>
+<blockquote>
+<p>f(x)=y</p>
+</blockquote>
+<p>可以解读为: <strong>函数f，以x作为参数，并返回输出y</strong>；这个简单的定义包含了几个点：</p>
+<ul>
+<li>函数必须总是接收一个参数</li>
+<li>函数必须总是返回一个值</li>
+<li>函数应该依据接收到的参数而不是外部环境运行</li>
+<li>对于一个给定的X，只会输出唯一的一个Y</li>
+</ul>
+<p>有了数学上的函数定义，可以理解出程序上的定义：<strong>函数式编程是一种<a href="https://baike.baidu.com/item/%E8%8C%83%E5%BC%8F/22773" target="_blank" rel="noopener">范式</a>，我们能够以此创建仅依赖数据就可以完成自身逻辑的函数（函数不会改变任何外部环境的变量）</strong></p>
+<p>举个栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let percentValue = 5</span><br><span class="line">let calculateTax = (value) =&gt; value/100 * (100 + percentValue)</span><br></pre></td></tr></table></figure>
+<p>上面代码中，calculateTax返回一个经过计算的数值，理论上讲，该段代码无任何异议；但该函数在数学意义上就不能称之为一个真正的函数，因为他的执行依赖了一个外部环境。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let calculateTax = (value, percentValue) =&gt; value/100 * (100 + percentValue)</span><br></pre></td></tr></table></figure>
+<p>上面这段代码则可以被成为一个真正的函数了。我们做了什么 -&gt; 在函数内部消除了对外部环境的访问。稍后会介绍这么做的好处。</p>
+<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><h3 id="引用透明"><a href="#引用透明" class="headerlink" title="引用透明"></a>引用透明</h3><blockquote>
+<p>引用透明性: 相同的输入都会返回相同的值</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let identity = (i) =&gt; i</span><br></pre></td></tr></table></figure>
+<p>上面的代码定义了一个函数 <code>identity</code>，他将传入的值作为输出，没有任何依赖的外部环境，该函数满足了引用透明性条件。现在假设该函数被用于其他函数调用之处：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum(4, 5) + identity(1)</span><br></pre></td></tr></table></figure>
+<p>根据引用透明性原则，我们可以把上面的函数转化为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum(4, 5) + 1</span><br></pre></td></tr></table></figure>
+<p>这个过程被称为<strong>替换模型（Substitution Model）</strong></p>
+<h3 id="声名式"><a href="#声名式" class="headerlink" title="声名式"></a>声名式</h3><p>给定一个数组，我想分别打印出数组的每一项，有如下两段代码：</p>
+<p>A</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let arr = [1, 2, 3, 4, 5]</span><br><span class="line">for(let i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">    console.log(arr[i])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>B</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let arr = [1, 2, 3, 4, 5]</span><br><span class="line">arr.forEach((item) =&gt; console.log(item))</span><br></pre></td></tr></table></figure>
+<p> 上面两段代码都可以完成我们规定的任务，区别在于：</p>
+<ul>
+<li>代码A是命令式的</li>
+<li>代码B是声名式的</li>
+</ul>
+<p>回顾一下我们的任务： <strong>打印出数组中的每一项</strong></p>
+<ul>
+<li>代码A中，我们精确的告诉了程序改怎么做：我们用数组长度的索引编写了一个for循环，然后再打印出数组的每一项，这并不是任务的初衷，而是在<code>精确的告知程序该怎么做</code>，我们称这种解决方案为<strong>命令式</strong></li>
+<li>代码B中，程序准确的执行了我们的任务：<strong>打印出数组中的每一项</strong>，这种<code>告知程序做什么的</code>解决方案，我们称之为<strong>声名式</strong></li>
+</ul>
+<blockquote>
+<p>命令式 -&gt; 怎么做<br>声名式 -&gt; 做什么</p>
+</blockquote>
+<h2 id="函数式编程带来的好处"><a href="#函数式编程带来的好处" class="headerlink" title="函数式编程带来的好处"></a>函数式编程带来的好处</h2><h3 id="纯函数"><a href="#纯函数" class="headerlink" title="纯函数"></a>纯函数</h3><blockquote>
+<p>纯函数是对给定的输入返回相同的输出的函数</p>
+</blockquote>
+<pre><code>let double = (value) =&gt; value * 2
+</code></pre><p>上面的double函数就是一个纯函数，因为给他一个输入，他总是能返回相同的输出</p>
+<h3 id="并发代码"><a href="#并发代码" class="headerlink" title="并发代码"></a>并发代码</h3><blockquote>
+<p>根据引用通明原则，我们可以同步的执行函数</p>
+</blockquote>
+<p>假设我们用JS中的WebWorker来并发的执行多任务，有以下代码</p>
+<pre><code>let global = &apos;something&apos;
+
+let function1 = (input) =&gt; {
+    // 处理input
+    // 改变global
+    global = &apos;somethingElse&apos;
+}
+
+let function2 = () =&gt; {
+    if (global === &apos;something&apos;) {
+        // 业务逻辑
+    }
+}
+</code></pre><p>如果我们要并发的执行function1和function2，会因为先后顺序等因素得到不同结果，现在把这些函数改为纯函数</p>
+<pre><code>let function1 = (input, global) =&gt; {
+    // 处理input
+    // 改变global
+    global = &apos;somethingElse&apos;
+}
+
+let function2 = (global) =&gt; {
+    if (global === &apos;something&apos;) {
+        // 业务逻辑
+    }
+}
+</code></pre><p>此处我们移动了global变量，把他作为两个函数的参数，使他们变为纯函数。现在我们可以并发的执行两个函数了，不会带来任何问题。</p>
+<h3 id="可缓存"><a href="#可缓存" class="headerlink" title="可缓存"></a>可缓存</h3><blockquote>
+<p>既然纯函数总是为给定的输入返回相同的输出，那么我们就能够缓存函数的输出</p>
+</blockquote>
+<p>假设有如下做耗时计算的函数：</p>
+<pre><code>let longRunningFunction = (ip) =&gt; { // do long running tasks and return }
+</code></pre><p><strong>如果longRunningFunction是纯函数</strong>，我们知道相同的输入那么他总会返回相同输出，那么我们能不能将函数的结果作为下一个函数的调用呢？</p>
+<p>假设我们有一个对象，他存储了longRunningFunction的所有调用结果：</p>
+<pre><code>let longRunningFnBookKeeper = {
+    2: 3,
+    4: 5,
+    ...
+}
+</code></pre><p>现在我们在调用原始函数之前检查key是否在longRunningFnBookKeeper中</p>
+<pre><code>let longRunningFnBookKeeper = {
+    2: 3,
+    4: 5,
+    ...
+}
+
+// 检查key是否在longRunningFnBookKeeper中
+// 如果在返回返回结果否则更新对象
+longRunningFnBookKeeper.hasOwnPrototype(ip) ? 
+    longRunningFnBookKeeper.hasOwnPrototype[ip] :
+    longRunningFnBookKeeper.hasOwnPrototype = longRunningFunction(ip)
+</code></pre><p>另一个栗子：</p>
+<pre><code>let factorial (n) {
+    if (n === 1) return 1
+    return n * factorial(n - 1)
+}
+</code></pre><p>上面的代码是一个阶乘函数，计算n的阶乘，要保存n个调用记录，复杂度O(n)</p>
+<img src="/2018/03/11/functional1/1-1.png">
+<p>通过缓存的方式将中个阶乘函数改写</p>
+<pre><code>let factorial (n, result) {
+    if (n === 1) return result
+    return factorial(n - 1, n * result)
+}
+</code></pre><img src="/2018/03/11/functional1/1-2.png">
+<p>上面的代码，我们将上一次的计算结果缓存，复杂度O(1)  </p>
+<h3 id="管道与组合"><a href="#管道与组合" class="headerlink" title="管道与组合"></a>管道与组合</h3><p>在UNIX和LINUX的平台中有许多用于日常任务的命令</p>
+<pre><code>ps -ef | grep nginx
+</code></pre><p>上面的命令用于查询系统中的nginx信息，这就是一个典型的组合方式。</p>
+<img src="/2018/03/11/functional1/1-3.png">
+<p>上图中，X和Y之间的变形关系是函数f，Y和Z的变形关系是g，那么X和Z之间的关系，就是g和f的组合函数： </p>
+<pre><code>g(f(x))
+</code></pre><p>另一种方式</p>
+<pre><code>foo(x).compose(f).compose(g)
+</code></pre><p>将值通过链式调用的方式逐级传递</p>
+<h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><ul>
+<li><a href="http://www.ruanyifeng.com/blog/2017/02/fp-tutorial.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2017/02/fp-tutorial.html</a></li>
+<li>《JavaScript ES6 函数编程入门经典》第1章 </li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -587,7 +1416,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
