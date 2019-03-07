@@ -107,31 +107,31 @@
 
 
   
-  <meta name="keywords" content="functional," />
+  <meta name="keywords" content="algorithm," />
 
 
-<meta name="description" content="什么是函子 函子是一个普通对象，他实现了map函数，在遍历每个对象值的时候生成一个新对象  函子是容器下面的代码创造了一个简单的容器，他能够持有任何传给他的值 class Container {     constructor (val) {         this.value = val     } } 应用Container let testValue = new Container(3)">
-<meta name="keywords" content="functional">
+<meta name="description" content="问题描述N皇后问题是经典八皇后问题的扩展：在N*N的棋盘上，有N个皇后需要放置，需满足任意两个皇后不能位于同一行、同一列或者是同一对角线上，求一共有几种放置方法。 八皇后问题，是一个古老而著名的问题，是回溯算法的典型案例。该问题是国际西洋棋棋手马克斯·贝瑟尔于1848年提出。高斯认为有76种方案。1854年在柏林的象棋杂志上不同的作者发表了40种不同的解，后来有人用图论的方法解出92种结果。计算机">
+<meta name="keywords" content="algorithm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="函数式编程（六）：函子">
-<meta property="og:url" content="http://lvvlan.github.io/2018/06/26/functional7/index.html">
+<meta property="og:title" content="N皇后问题">
+<meta property="og:url" content="http://lvvlan.github.io/2019/03/07/algorithm1/index.html">
 <meta property="og:site_name" content="lemonleon">
-<meta property="og:description" content="什么是函子 函子是一个普通对象，他实现了map函数，在遍历每个对象值的时候生成一个新对象  函子是容器下面的代码创造了一个简单的容器，他能够持有任何传给他的值 class Container {     constructor (val) {         this.value = val     } } 应用Container let testValue = new Container(3)">
+<meta property="og:description" content="问题描述N皇后问题是经典八皇后问题的扩展：在N*N的棋盘上，有N个皇后需要放置，需满足任意两个皇后不能位于同一行、同一列或者是同一对角线上，求一共有几种放置方法。 八皇后问题，是一个古老而著名的问题，是回溯算法的典型案例。该问题是国际西洋棋棋手马克斯·贝瑟尔于1848年提出。高斯认为有76种方案。1854年在柏林的象棋杂志上不同的作者发表了40种不同的解，后来有人用图论的方法解出92种结果。计算机">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-26T00:26:13.410Z">
+<meta property="og:updated_time" content="2019-03-07T00:22:35.145Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="函数式编程（六）：函子">
-<meta name="twitter:description" content="什么是函子 函子是一个普通对象，他实现了map函数，在遍历每个对象值的时候生成一个新对象  函子是容器下面的代码创造了一个简单的容器，他能够持有任何传给他的值 class Container {     constructor (val) {         this.value = val     } } 应用Container let testValue = new Container(3)">
+<meta name="twitter:title" content="N皇后问题">
+<meta name="twitter:description" content="问题描述N皇后问题是经典八皇后问题的扩展：在N*N的棋盘上，有N个皇后需要放置，需满足任意两个皇后不能位于同一行、同一列或者是同一对角线上，求一共有几种放置方法。 八皇后问题，是一个古老而著名的问题，是回溯算法的典型案例。该问题是国际西洋棋棋手马克斯·贝瑟尔于1848年提出。高斯认为有76种方案。1854年在柏林的象棋杂志上不同的作者发表了40种不同的解，后来有人用图论的方法解出92种结果。计算机">
 
 
 
 
 
 
-  <link rel="canonical" href="http://lvvlan.github.io/2018/06/26/functional7/"/>
+  <link rel="canonical" href="http://lvvlan.github.io/2019/03/07/algorithm1/"/>
 
 
-  <title>函数式编程（六）：函子 | lemonleon</title>
+  <title>N皇后问题 | lemonleon</title>
   
 
 
@@ -295,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lvvlan.github.io/2018/06/26/functional7/">
+    <link itemprop="mainEntityOfPage" href="http://lvvlan.github.io/2019/03/07/algorithm1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lemonleon">
@@ -312,7 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">函数式编程（六）：函子</h1>
+          <h1 class="post-title" itemprop="name headline">N皇后问题</h1>
         
 
         <div class="post-meta">
@@ -324,7 +324,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-26T08:25:12+08:00">2018-06-26</time>
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-07T08:21:44+08:00">2019-03-07</time>
             
 
             
@@ -345,7 +345,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
 
                 
                 
@@ -379,114 +379,41 @@
       
 
       
-        <h2 id="什么是函子"><a href="#什么是函子" class="headerlink" title="什么是函子"></a>什么是函子</h2><blockquote>
-<p>函子是一个普通对象，他实现了map函数，在遍历每个对象值的时候生成一个新对象</p>
-</blockquote>
-<h3 id="函子是容器"><a href="#函子是容器" class="headerlink" title="函子是容器"></a>函子是容器</h3><p>下面的代码创造了一个简单的容器，他能够持有任何传给他的值</p>
-<pre><code>class Container {
-    constructor (val) {
-        this.value = val
-    }
-}
-</code></pre><p>应用Container</p>
-<pre><code>let testValue = new Container(3)
-// Container(value: 3)
-</code></pre><p>通过of静态方法省略 new 关键字</p>
-<pre><code>class Container {
-    constructor (val) {
-        this.value = val
-    }
-    static of (val) {
-            return new this(val)
+        <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>N皇后问题是经典八皇后问题的扩展：在N*N的棋盘上，有N个皇后需要放置，需满足任意两个皇后不能位于同一行、同一列或者是同一对角线上，求一共有几种放置方法。</p>
+<p>八皇后问题，是一个古老而著名的问题，是回溯算法的典型案例。该问题是国际西洋棋棋手马克斯·贝瑟尔于1848年提出。高斯认为有76种方案。1854年在柏林的象棋杂志上不同的作者发表了40种不同的解，后来有人用图论的方法解出92种结果。计算机发明后，有多种计算机语言可以解决此问题</p>
+<h2 id="回溯解法"><a href="#回溯解法" class="headerlink" title="回溯解法"></a>回溯解法</h2><p>N皇后问题是一个经典的回溯法的例子，核心思想就是逐行（或逐列）放置，若某一行没有可供放置的位置了，说明前面的放置有误，故回溯到上一行寻找下一个可能的位置。N皇后问题是一个NP-Hard问题，其算法复杂度是指数复杂度的。</p>
+<h2 id="核心代码"><a href="#核心代码" class="headerlink" title="核心代码"></a>核心代码</h2><ul>
+<li><p>回溯代码</p>
+<p>  const queen = function (row = 0) {</p>
+<pre><code>if (row === n) {
+    total++
+    all.push([...c])
+} else {
+    for (let col = 0; col &lt; n; col++) {
+        c[row] = col
+        if (check(row)) {
+            queen(row + 1)
         }
-}
-
-testValue = Container.of(3)
-// Container(value: 3)
-</code></pre><h3 id="函子实现了map方法"><a href="#函子实现了map方法" class="headerlink" title="函子实现了map方法"></a>函子实现了map方法</h3><p>map函数允许我们使用当前Container持有的值调用任何函数</p>
-<pre><code>class Container {
-    constructor (val) {
-        this.value = val
-    }
-
-    map (fn) {
-        return new Container(fn(this.value))
     }
 }
-</code></pre><p>应用</p>
-<pre><code>let double = () =&gt; x + x
-
-Container.of(3).map(double) // Container(value: 6)
-</code></pre><p>map函数返回了以传入函数的执行结果为值的Container实例，所以允许我们进行链式操作</p>
-<pre><code>Container.of(3)
-            .map(double)
-            .map(double)
-            .map(double)    // Container(value: 24)
-</code></pre><h2 id="MayBe函子"><a href="#MayBe函子" class="headerlink" title="MayBe函子"></a>MayBe函子</h2><p>函子接受各种函数，处理容器内部的值。这里就有一个问题，容器内部的值可能是一个空值（比如null），而外部函数未必有处理空值的机制，如果传入空值，很可能就会出错。Maybe 函子就是为了解决这一类问题而设计的。简单说，它的map方法里面设置了空值检查。</p>
-<pre><code>class MayBe extends Container {
-    isNothing () {
-        return this.value === null || this.value === undefined
-    }
-
-    map (fn) {
-        return this.isNothing() ? MayBe.of(null) : MayBe.of(fn(this.value))
-    }
+</code></pre><p>  }</p>
+</li>
+<li><p>check代码</p>
+<p>  const check = function (row) {</p>
+<pre><code>for (let i = 0; i &lt; row; i++){
+    // 纵向
+    if (c[row] === c[i]) return false
+    // 斜向相减
+    if (c[row] - row === c[i] - i) return false
+    // 斜向相加
+    if (c[row] + row === c[i] + i) return false
 }
-
-MayBe.of(null).map((s) =&gt; s.toUpperCase())  // MayBe {value: null}
-</code></pre><h2 id="ap函子"><a href="#ap函子" class="headerlink" title="ap函子"></a>ap函子</h2><p>  函子里面包含的值，完全可能是函数。我们可以想象这样一种情况，y一个函子的值是数值，另一干函子的值是函数。</p>
-<pre><code>function addTwo (x) {
-    return x + 2
-}
-
-const A = Container.of(2)
-const B = Container.of(addTwo)
-</code></pre><p>上面代码中，A函子的值是2，B函子的值是addTwo，有时我们想让B函子内部的函数可以用A函子内部的值，这时就需要用到ap函子</p>
-<pre><code>class Ap extends Container {
-    ap (fn) {
-        return Ap.of(this.value(fn.value))
-    }
-}
-
-Ap.of(addTwo).ap(Container.of(2))   // Ap {value: 4}
-</code></pre><p>ap函子的意义在于，对于那些多参的函数，可以从容器中取值，实现函子的链式操作</p>
-<pre><code>function add (x) {
-    return function (y) {
-        return x + y
-    }
-}    
-
-Ap.of(add).ap(Maybe.of(2)).ap(Maybe.of(3))  // Ap {value: 5}
-</code></pre><h2 id="Monad函子"><a href="#Monad函子" class="headerlink" title="Monad函子"></a>Monad函子</h2><p>函子是一个容器，可以包含任何值。函子之中再包含一个函子，也是完全合法的。但是，这样就会出现多层嵌套的函子。<code>Monad 函子的作用是，总是返回一个单层的函子。</code></p>
-<pre><code>class Monad {
-    constructor (val) {
-        this.value = val
-    }
-
-    map (fn) {
-        return new Monad(fn(this.value))
-    }
-
-    join () {
-        return this.value
-    }
-
-    chain (f) {
-        return this.map(f).join()
-    }
-
-      static of (val) {
-            return new this(val)
-        }
-}
-</code></pre><p>现在Monad可以帮我们打开嵌套的函子了</p>
-<pre><code>let example = Monad.of(Monad.of(5))
-
-example.chain((x) =&gt; x * x)
-</code></pre><h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
-<li>《JavaScript ES6 函数编程入门经典》第8章  </li>
-<li><a href="http://www.ruanyifeng.com/blog/2017/02/fp-tutorial.html" target="_blank" rel="noopener">函数式编程入门教程</a>    </li>
+return true
+</code></pre><p>  }    </p>
+</li>
 </ul>
+<p> 后续会更新一下具体的解法思路</p>
+<p> 源码地址：<a href="https://github.com/lvvlan/NQueen" target="_blank" rel="noopener">https://github.com/lvvlan/NQueen</a></p>
 
       
     </div>
@@ -504,7 +431,7 @@ example.chain((x) =&gt; x * x)
       
         <div class="post-tags">
           
-            <a href="/tags/functional/" rel="tag"># functional</a>
+            <a href="/tags/algorithm/" rel="tag"># algorithm</a>
           
         </div>
       
@@ -517,8 +444,8 @@ example.chain((x) =&gt; x * x)
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/10/functional6/" rel="next" title="函数式编程（五）：组合与管道">
-                <i class="fa fa-chevron-left"></i> 函数式编程（五）：组合与管道
+              <a href="/2019/02/13/math1/" rel="next" title="计算机为什么使用二级制">
+                <i class="fa fa-chevron-left"></i> 计算机为什么使用二级制
               </a>
             
           </div>
@@ -526,10 +453,6 @@ example.chain((x) =&gt; x * x)
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/13/math1/" rel="prev" title="计算机为什么使用二级制">
-                计算机为什么使用二级制 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -695,7 +618,7 @@ example.chain((x) =&gt; x * x)
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是函子"><span class="nav-number">1.</span> <span class="nav-text">什么是函子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函子是容器"><span class="nav-number">1.1.</span> <span class="nav-text">函子是容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函子实现了map方法"><span class="nav-number">1.2.</span> <span class="nav-text">函子实现了map方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MayBe函子"><span class="nav-number">2.</span> <span class="nav-text">MayBe函子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ap函子"><span class="nav-number">3.</span> <span class="nav-text">ap函子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Monad函子"><span class="nav-number">4.</span> <span class="nav-text">Monad函子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附"><span class="nav-number">5.</span> <span class="nav-text">附</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">5.1.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回溯解法"><span class="nav-number">2.</span> <span class="nav-text">回溯解法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核心代码"><span class="nav-number">3.</span> <span class="nav-text">核心代码</span></a></li></ol></div>
             
 
           </div>
