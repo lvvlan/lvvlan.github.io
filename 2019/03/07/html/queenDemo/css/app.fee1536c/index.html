@@ -107,31 +107,30 @@
 
 
   
-  <meta name="keywords" content="functional," />
+  <meta name="keywords" content="码农/猫奴/瞎烧友/伪影迷" />
 
 
-<meta name="description" content="理解闭包什么是闭包简言之，闭包就是一个内部函数。在另一个函数内部的函数，称为内部函数。 function outer () {     function inner () {} } 这就是闭包。函数inner被称为闭包函数。 闭包有三个可访问的作用域  在他自身声明之内声明的变量 对全局变量的访问 对外部函数变量的访问   function outer () {     function inne">
-<meta name="keywords" content="functional">
+<meta name="description" content=".block[data-v-57251358]{display:inline-block;width:20px;height:20px;background:#add8e6;margin:0 2px 2px 0}.block.block-light[data-v-57251358]{background:#f08080}p{margin:0;padding:0;height:22px}.item{">
 <meta property="og:type" content="article">
-<meta property="og:title" content="函数式编程（二）：高阶函数（下）">
-<meta property="og:url" content="http://lvvlan.github.io/2018/04/15/functional3/index.html">
+<meta property="og:title" content="lemonleon">
+<meta property="og:url" content="http://lvvlan.github.io/2019/03/07/html/queenDemo/css/app.fee1536c/index.html">
 <meta property="og:site_name" content="lemonleon">
-<meta property="og:description" content="理解闭包什么是闭包简言之，闭包就是一个内部函数。在另一个函数内部的函数，称为内部函数。 function outer () {     function inner () {} } 这就是闭包。函数inner被称为闭包函数。 闭包有三个可访问的作用域  在他自身声明之内声明的变量 对全局变量的访问 对外部函数变量的访问   function outer () {     function inne">
+<meta property="og:description" content=".block[data-v-57251358]{display:inline-block;width:20px;height:20px;background:#add8e6;margin:0 2px 2px 0}.block.block-light[data-v-57251358]{background:#f08080}p{margin:0;padding:0;height:22px}.item{">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-15T14:47:34.236Z">
+<meta property="og:updated_time" content="2019-03-07T00:32:06.421Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="函数式编程（二）：高阶函数（下）">
-<meta name="twitter:description" content="理解闭包什么是闭包简言之，闭包就是一个内部函数。在另一个函数内部的函数，称为内部函数。 function outer () {     function inner () {} } 这就是闭包。函数inner被称为闭包函数。 闭包有三个可访问的作用域  在他自身声明之内声明的变量 对全局变量的访问 对外部函数变量的访问   function outer () {     function inne">
+<meta name="twitter:title" content="lemonleon">
+<meta name="twitter:description" content=".block[data-v-57251358]{display:inline-block;width:20px;height:20px;background:#add8e6;margin:0 2px 2px 0}.block.block-light[data-v-57251358]{background:#f08080}p{margin:0;padding:0;height:22px}.item{">
 
 
 
 
 
 
-  <link rel="canonical" href="http://lvvlan.github.io/2018/04/15/functional3/"/>
+  <link rel="canonical" href="http://lvvlan.github.io/2019/03/07/html/queenDemo/css/app.fee1536c/"/>
 
 
-  <title>函数式编程（二）：高阶函数（下） | lemonleon</title>
+  <title> | lemonleon</title>
   
 
 
@@ -295,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lvvlan.github.io/2018/04/15/functional3/">
+    <link itemprop="mainEntityOfPage" href="http://lvvlan.github.io/2019/03/07/html/queenDemo/css/app.fee1536c/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lemonleon">
@@ -312,7 +311,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">函数式编程（二）：高阶函数（下）</h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -324,7 +323,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-15T22:24:25+08:00">2018-04-15</time>
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-07T08:32:06+08:00">2019-03-07</time>
             
 
             
@@ -333,24 +332,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -379,143 +360,7 @@
       
 
       
-        <h2 id="理解闭包"><a href="#理解闭包" class="headerlink" title="理解闭包"></a>理解闭包</h2><h3 id="什么是闭包"><a href="#什么是闭包" class="headerlink" title="什么是闭包"></a>什么是闭包</h3><p>简言之，闭包就是一个内部函数。在另一个函数内部的函数，称为内部函数。</p>
-<pre><code>function outer () {
-    function inner () {}
-}
-</code></pre><p>这就是闭包。函数inner被称为闭包函数。</p>
-<p>闭包有三个可访问的作用域</p>
-<ul>
-<li>在他自身声明之内声明的变量</li>
-<li>对全局变量的访问</li>
-<li>对外部函数变量的访问</li>
-</ul>
-<hr>
-<pre><code>function outer () {
-    function inner () {
-        let a = 5
-        console.log(a)
-    }
-    inner()
-}
-</code></pre><p><strong>当inner函数被调用的时候，控制台会输出5（闭包函数可以访问在他自身声明之内声明的变量）</strong></p>
-<pre><code>let global = &apos;global&apos;
-
-function outer () {
-    function inner () {
-        let a = 5
-        console.log(global)
-    }
-    inner()
-} 
-</code></pre><p><strong>当inner函数被调用的时候，控制台会输出’global’（闭包函数可以访问全局变量）</strong></p>
-<pre><code>let global = &apos;global&apos;
-
-function outer () {
-    let out = &apos;out&apos;
-    function inner () {
-        let a = 5
-        console.log(out)
-    }
-    inner()
-} 
-</code></pre><p><strong>当inner函数被调用的时候，控制台会输出’out’</strong>    </p>
-<h3 id="记住闭包生成的位置"><a href="#记住闭包生成的位置" class="headerlink" title="记住闭包生成的位置"></a>记住闭包生成的位置</h3><p>如下代码</p>
-<pre><code>let fn = (arg) =&gt; {
-    let outer = &apos;Visible&apos;
-    let innerFn = () =&gt; {
-        console.log(outer)
-        console.log(arg)
-    }
-
-    return innerFn
-}
-</code></pre><p>innerFn对于fn来说，是一个闭包函数，并且fn被调用后返回了innerFn。</p>
-<pre><code>let closureFn = fn(5)
-closureFn() // Visible; 5   
-</code></pre><p>fn被调用时，返回了innerFn，当innerFn被返回时，JavaScript执行引擎视innerFn为一个闭包，如上一小节所说，闭包有三个作用域层级。这三个作用域层级（arg，outer值将被设置到inner的作用域层级中）在innerFn返回时都被设置了！返回函数的引用存储在了closureFn中。如此，当closureFn通过作用域链被调用时就记住了arg、outer的值。  </p>
-<h3 id="回顾sortBy函数"><a href="#回顾sortBy函数" class="headerlink" title="回顾sortBy函数"></a>回顾sortBy函数</h3><p>快速回顾一下上一篇中定义和使用的sortBy函数</p>
-<pre><code>const sortBy = (property) =&gt; {
-    return (a, b) =&gt; {
-        let result = (a[property] &lt; b[property] ? -1 : (a[property] &gt; b[property]) ? 1 : 0)
-
-        return result
-    }
-}
-</code></pre><p>当以如下方式调用sortBy函数</p>
-<pre><code>sortBy(&apos;firstname&apos;)
-</code></pre><p>sortBy函数返回了一个接受两个参数的新函数</p>
-<pre><code>(a, b) =&gt; (/* 实现 */)
-</code></pre><p>这时返回的函数就能够访问property参数，所以就可以根据传入的property值写对应的逻辑</p>
-<h2 id="真实的高阶函数"><a href="#真实的高阶函数" class="headerlink" title="真实的高阶函数"></a>真实的高阶函数</h2><h3 id="tap"><a href="#tap" class="headerlink" title="tap"></a>tap</h3><blockquote>
-<p>tap函数是一个简单的函数，他将接受一个value并返回一个包含value的闭包函数，该函数将被执行</p>
-</blockquote>
-<pre><code>const tap = (value) =&gt; (fn) =&gt; (
-    typeof(fn) === &apos;function&apos; &amp;&amp; fn(value),
-    console.log(value)
-)
-
-tap(&apos;fun&apos;)((it) =&gt; console.log(&apos;vaule is: &apos;, it))
-// value is  fun
-// fun
-</code></pre><h3 id="unary"><a href="#unary" class="headerlink" title="unary"></a>unary</h3><blockquote>
-<p>unary接受一个给定多个参数的函数，并把它转换为一个只接受一个参数的函数</p>
-</blockquote>
-<p>有数组[‘1’, ‘2’, ‘3’]，我期望能够将数组中的每一项改为number，我们可以利用数组的map方法</p>
-<pre><code>[&apos;1&apos;, &apos;2&apos;, &apos;3&apos;].map(parseInt)
-// [1, NaN, NaN]
-</code></pre><p>然而返回的并不是我们所期望，map函数参数中传入的函数接收两个参数，第一个是数组中的每一项，第二个该项的索引。parseInt函数接收两个参数，第一个是将要转化的字符串，第二个按照几进制转换，默认10进制。由此可见，当进行到数组的第二项，parseInt函数接收到的第一个参数是’2’,第二个参数是1，所以会返回NaN。</p>
-<pre><code>const unary = (fn) =&gt; fn.length &lt;= 1 ? fn : (arg) =&gt; fn(arg)
-</code></pre><p>unary函数接收一个函数为参数，如果这个函数接收的参数个数小于等于1什么都不做，否则返回一个新函数，他只接受一个参数arg</p>
-<p>接下来我们可以通过unary函数再来完成上述任务</p>
-<pre><code>[&apos;1&apos;, &apos;2&apos;, &apos;3&apos;].map(unary(parseInt)) 
-// [1, 2, 3]
-</code></pre><h3 id="once"><a href="#once" class="headerlink" title="once"></a>once</h3><blockquote>
-<p>once函数的任务是只运行一次给定的函数</p>
-</blockquote>
-<pre><code>const once = (fn) =&gt; {
-    let done = false
-
-    return function (...args) {
-        return done ? undefined : ((done = true), fn.apply(this, args))
-    }
-}    
-</code></pre><p>下面我们来快速检测一下once函数</p>
-<pre><code>const doPayment = once(() =&gt; console.log(&apos;doPayment is done!&apos;))
-
-// 执行第一次
-doPayment() // doPayment is done!
-// 执行第二次
-doPayment() // undefined  
-</code></pre><h3 id="memoized"><a href="#memoized" class="headerlink" title="memoized"></a>memoized</h3><blockquote>
-<p>memoized函数将已经计算过的结果存储起来，下次再有相同的计算时可以直接从内存中读取</p>
-</blockquote>
-<p>有以下阶乘函数</p>
-<pre><code>let factorial = (n) =&gt; {
-    if (n == 0) return 1
-
-    return n * factorial(n - 1)
-}
-</code></pre><p>此处没有什么特别的，但有一个问题，为了计算3的阶乘，必须要先计算2的阶乘，为什么不能直接给出结果呢？</p>
-<pre><code>const memoized = (fn) =&gt; {
-    let lookupTable = {}
-
-    return (arg) =&gt; lookupTable[arg] || (lookupTable[arg] = fn(arg))
-} 
-</code></pre><p>现在我们可以把factorial函数包裹进一个memoized函数来保留他的输出了</p>
-<pre><code>let fastFactorial = memoized (factorial) 
-</code></pre><p>现在调用 fastFactorial</p>
-<pre><code>fastFactorial(5)
-// 120
-// lookupTable为 Object: {0: 1, 1: 1, 2: 2, 3: 6, 4: 24, 5: 120}
-
-fastFactorial(3)
-// 6 直接从lookupTable返回
-</code></pre><p>以同样的方式运行，但是比之前会快很多。</p>
-<h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
-<li>《JavaScript ES6 函数编程入门经典》第3章     </li>
-</ul>
-
+        .block[data-v-57251358]{display:inline-block;width:20px;height:20px;background:#add8e6;margin:0 2px 2px 0}.block.block-light[data-v-57251358]{background:#f08080}p{margin:0;padding:0;height:22px}.item{float:left;margin-right:10px;margin-bottom:10px}
       
     </div>
     
@@ -530,12 +375,6 @@ fastFactorial(3)
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/functional/" rel="tag"># functional</a>
-          
-        </div>
-      
 
       
       
@@ -545,8 +384,8 @@ fastFactorial(3)
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/07/functional2/" rel="next" title="函数式编程（二）：高阶函数（上）">
-                <i class="fa fa-chevron-left"></i> 函数式编程（二）：高阶函数（上）
+              <a href="/2019/03/07/algorithm1/" rel="next" title="N皇后问题">
+                <i class="fa fa-chevron-left"></i> N皇后问题
               </a>
             
           </div>
@@ -555,8 +394,8 @@ fastFactorial(3)
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/07/functional4/" rel="prev" title="函数式编程（三）：数组的函数式编程">
-                函数式编程（三）：数组的函数式编程 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/07/html/queenDemo/js/app.e3e43742/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -608,17 +447,8 @@ fastFactorial(3)
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -713,22 +543,6 @@ fastFactorial(3)
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#理解闭包"><span class="nav-number">1.</span> <span class="nav-text">理解闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是闭包"><span class="nav-number">1.1.</span> <span class="nav-text">什么是闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#记住闭包生成的位置"><span class="nav-number">1.2.</span> <span class="nav-text">记住闭包生成的位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回顾sortBy函数"><span class="nav-number">1.3.</span> <span class="nav-text">回顾sortBy函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#真实的高阶函数"><span class="nav-number">2.</span> <span class="nav-text">真实的高阶函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#tap"><span class="nav-number">2.1.</span> <span class="nav-text">tap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unary"><span class="nav-number">2.2.</span> <span class="nav-text">unary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#once"><span class="nav-number">2.3.</span> <span class="nav-text">once</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#memoized"><span class="nav-number">2.4.</span> <span class="nav-text">memoized</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附"><span class="nav-number">3.</span> <span class="nav-text">附</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">3.1.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
